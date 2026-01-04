@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+  color: #333;
+}
+header {
+  background: #1f4fd8;
+  color: #fff;
+  padding: 1.5rem;
+  text-align: center;
+}
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1.5rem;
+}
+h2, h3 {
+  margin-top: 0;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.controls input {
+  flex: 1;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.field-btn {
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: 0.2s;
+}
+.field-btn:hover {
+  background: #eaf0ff;
+  transform: translateY(-2px);
+}
+.papers {
+  display: none;
+}
+.papers.active {
+  display: block;
+}
+.paper-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  cursor: pointer;
+}
+.paper-card small {
+  color: #666;
+}
+.tag {
+  display: inline-block;
+  background: #dbe4ff;
+  color: #1f4fd8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-right: 4px;
+}
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #eaeaea;
+  font-size: 0.85rem;
+}
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #fff;
+  max-width: 600px;
+  width: 90%;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+.close-btn {
+  float: right;
+  cursor: pointer;
+  font-weight: bold;
+}
+/* Login */
+#loginScreen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#loginBox {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}

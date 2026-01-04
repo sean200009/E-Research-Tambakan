@@ -1,0 +1,30 @@
+{
+  "MCS": [
+    {
+      "title": "MCS Research Paper 1",
+      "author": "Various Authors",
+      "year": 2018,
+      "abstract": "This study explores sample topics under MCS to help junior high school students brainstorm research ideas.",
+      "keywords": ["qualitative", "student", "MCS"]
+    },
+    {
+      "title": "MCS Research Paper 2",
+      "author": "Various Authors",
+      "year": 2019,
+      "abstract": "This study explores sample topics under MCS to help junior high school students brainstorm research ideas.",
+      "keywords": ["qualitative", "student", "MCS"]
+    }
+  ],
+  "RIM": [
+    {
+      "title": "RIM Research Paper 1",
+      "author": "Various Authors",
+      "year": 2018,
+      "abstract": "This study explores sample topics under RIM to help junior high school students brainstorm research ideas.",
+      "keywords": ["qualitative", "student", "RIM"]
+    }
+  ],
+  "LS": [],
+  "PS": [],
+  "STEMIE": []
+}
