@@ -6,174 +6,124 @@
   <title>E-Research Tambakan</title>
 
   <style>
-    * { box-sizing: border-box; }
-
     body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f2f5f9;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
       color: #333;
-      font-size: 17px;
     }
 
     header {
-      background: linear-gradient(135deg, #1f4fd8, #3f6df2);
-      color: white;
-      padding: 2.5rem 1rem;
+      background: #1f4fd8;
+      color: #fff;
+      padding: 1.5rem;
       text-align: center;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.3rem;
-    }
-
-    header p {
-      margin-top: 0.7rem;
-      font-size: 1.1rem;
-      opacity: 0.95;
-    }
-
     main {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: auto;
-      padding: 2rem 1.2rem;
+      padding: 1.5rem;
     }
 
-    .search-box {
-      margin-bottom: 1.8rem;
+    h2 {
+      margin-bottom: 1rem;
     }
 
     .search-box input {
       width: 100%;
-      padding: 1rem;
-      font-size: 1.05rem;
-      border-radius: 10px;
+      padding: 0.7rem;
+      border-radius: 6px;
       border: 1px solid #ccc;
+      margin-bottom: 1.5rem;
     }
 
     .fields {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 1rem;
-      margin-bottom: 2.2rem;
+      margin-bottom: 2rem;
     }
 
     .field-btn {
-      padding: 1.1rem;
+      padding: 0.9rem;
       border: none;
-      border-radius: 14px;
-      background: white;
-      font-size: 1rem;
+      border-radius: 8px;
+      background: #fff;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-      transition: 0.2s;
-    }
-
-    .field-btn:hover {
-      background: #e9efff;
-      transform: translateY(-3px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .field-btn.active {
       background: #1f4fd8;
-      color: white;
-    }
-
-    .papers {
-      display: grid;
-      gap: 1.3rem;
+      color: #fff;
     }
 
     .paper-card {
-      background: white;
-      padding: 1.3rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
       cursor: pointer;
     }
 
     .paper-card h3 {
-      margin: 0 0 0.4rem;
-      font-size: 1.25rem;
+      margin: 0 0 0.3rem;
+      font-size: 1.05rem;
     }
 
     .paper-card small {
-      color: #555;
-      font-size: 0.95rem;
-    }
-
-    .tags {
-      margin-top: 0.6rem;
+      color: #666;
     }
 
     .tag {
       display: inline-block;
       background: #e0e7ff;
       color: #1f4fd8;
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      margin-right: 6px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      margin-right: 4px;
       margin-top: 6px;
     }
 
     .no-results {
       text-align: center;
-      font-size: 1.1rem;
       color: #777;
       margin-top: 2rem;
     }
 
     footer {
       text-align: center;
-      padding: 1.2rem;
-      font-size: 0.9rem;
-      color: #666;
+      padding: 1rem;
+      font-size: 0.85rem;
+      background: #eaeaea;
     }
 
     /* Modal */
     .modal {
+      display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.6);
-      display: none;
       justify-content: center;
       align-items: center;
-      padding: 1rem;
     }
 
     .modal-content {
-      background: white;
-      max-width: 680px;
-      width: 100%;
-      border-radius: 18px;
-      padding: 1.8rem;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-content h2 {
-      margin-top: 0;
-      font-size: 1.5rem;
+      background: #fff;
+      width: 90%;
+      max-width: 600px;
+      padding: 1.5rem;
+      border-radius: 10px;
     }
 
     .close-btn {
       float: right;
       cursor: pointer;
-      font-size: 1.3rem;
       font-weight: bold;
-    }
-
-    .modal p {
-      line-height: 1.6;
-    }
-
-    .notice {
-      font-size: 0.85rem;
-      color: #666;
-      margin-top: 1.2rem;
     }
   </style>
 </head>
@@ -182,13 +132,15 @@
 
 <header>
   <h1>E-Research Tambakan</h1>
-  <p>📚 Offline Research Index for Junior High School Students</p>
+  <p>Offline Research Index for Junior High School Students</p>
 </header>
 
 <main>
   <div class="search-box">
-    <input id="searchInput" placeholder="🔍 Search research title or keyword..." />
+    <input id="searchInput" placeholder="Search by title or keyword" />
   </div>
+
+  <h2>Select a Research Field</h2>
 
   <div class="fields">
     <button class="field-btn" data-field="MCS">MCS</button>
@@ -198,63 +150,65 @@
     <button class="field-btn" data-field="STEMIE">STEMIE</button>
   </div>
 
-  <div id="papers" class="papers"></div>
+  <div id="paperContainer"></div>
   <div id="noResults" class="no-results" style="display:none;">
-    ❌ No resource found
+    No resource found
   </div>
 </main>
 
 <footer>
-  © 2026 E-Research Tambakan • Educational Use Only
+  © 2026 E-Research Tambakan | Educational Use Only
 </footer>
 
 <!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">✖</span>
-    <h2 id="modalTitle"></h2>
-    <p>👤 <strong>Author:</strong> <span id="modalAuthor"></span></p>
-    <p>📅 <strong>Year:</strong> <span id="modalYear"></span></p>
-    <p>📄 <strong>Abstract:</strong></p>
+    <span class="close-btn" onclick="closeModal()">X</span>
+    <h3 id="modalTitle"></h3>
+    <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+    <p><strong>Year:</strong> <span id="modalYear"></span></p>
+    <p><strong>Abstract:</strong></p>
     <p id="modalAbstract"></p>
-    <p>🔑 <strong>Keywords:</strong></p>
+    <p><strong>Keywords:</strong></p>
     <div id="modalKeywords"></div>
-    <p class="notice">Full paper not included (copyright protected).</p>
+    <p style="font-size:0.8rem;color:#666;">
+      Full paper not included (copyright protected)
+    </p>
   </div>
 </div>
 
 <script>
-  let allPapers = {};
+  let papers = {};
   let currentField = null;
 
   fetch("papers.json")
     .then(res => res.json())
-    .then(data => allPapers = data);
+    .then(data => papers = data);
 
   const fieldButtons = document.querySelectorAll(".field-btn");
-  const papersContainer = document.getElementById("papers");
+  const container = document.getElementById("paperContainer");
   const noResults = document.getElementById("noResults");
   const searchInput = document.getElementById("searchInput");
 
   fieldButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.onclick = () => {
       fieldButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentField = btn.dataset.field;
       renderPapers();
-    });
+    };
   });
 
-  searchInput.addEventListener("input", renderPapers);
+  searchInput.oninput = renderPapers;
 
   function renderPapers() {
-    papersContainer.innerHTML = "";
+    container.innerHTML = "";
     noResults.style.display = "none";
 
-    if (!currentField || !allPapers[currentField]) return;
+    if (!currentField || !papers[currentField]) return;
 
     const query = searchInput.value.toLowerCase();
-    const results = allPapers[currentField].filter(p =>
+    const results = papers[currentField].filter(p =>
       p.title.toLowerCase().includes(query) ||
       p.keywords.join(" ").toLowerCase().includes(query)
     );
@@ -264,18 +218,16 @@
       return;
     }
 
-    results.forEach(paper => {
-      const card = document.createElement("div");
-      card.className = "paper-card";
-      card.innerHTML = `
-        <h3>${paper.title}</h3>
-        <small>👤 ${paper.author} • 📅 ${paper.year}</small>
-        <div class="tags">
-          ${paper.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
-        </div>
+    results.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "paper-card";
+      div.innerHTML = `
+        <h3>${p.title}</h3>
+        <small>${p.author} (${p.year})</small><br>
+        ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
       `;
-      card.onclick = () => openModal(paper);
-      papersContainer.appendChild(card);
+      div.onclick = () => openModal(p);
+      container.appendChild(div);
     });
   }
 
