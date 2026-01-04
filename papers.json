@@ -13,7 +13,7 @@
       "title": "Arduino-Based Smart Traffic Light System for EV Prioritization",
       "author": "Briol, et al.",
       "year": 2026,
-      "abstract": "Traffic congestion has become a wide issue in urban areas...",
+      "abstract": "Traffic congestion has become a wide issue in urban areas, affecting the efficiency of transportation, the safety of roads, and the city’s sustainability. Traditional traffic light systems, operated on fixed timing, fail to adapt to real-time traffic conditions. This study proposes a cost-effective traffic light system utilizing Arduino Mega 2560 as the primary microcontroller, integrated with an ESP32 camera and an IR sensor. The system is designed to change traffic signal based on real-time traffic volume and EVI. Conducted at a prototype simulation of road traffic in the Masbate City, this study aims to enhance traffic management by implementing Arduino-based processing. The system integrates the real-time changing of signal lights to reduce congestion, improve overall traffic flow, and prioritize EV. The research findings indicate that the system accurately responds to traffic volumes, precisely identifies EV, and effectively prioritizes EV . The study highlights the potential of smart technologies in modernizing traffic control systems, offering a scalable and cost-effective solution for small-scale urban intersections. Future research should explore further enhancements, such the integration of additional sensor technologies for more precise vehicle detection, integration of RFID systems, and the conduct of field testing.",
       "keywords": ["smart technologies", "traffic congestion", "Arduino Mega 2560", "ESP32 Camera", "vehicle classification"]
     }
   ],
@@ -45,3 +45,4 @@
     }
   ]
 }
+
