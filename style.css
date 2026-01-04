@@ -8,8 +8,9 @@ header{position:relative;text-align:center;overflow:hidden;padding:3rem 1rem;}
 header h1{font-size:3rem;z-index:2;position:relative;background:linear-gradient(135deg,#9013fe,#4a90e2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .header-controls{position:absolute;top:1rem;right:1rem;z-index:2;}
 .toggle-dark-mode{cursor:pointer;font-size:1.5rem;color:#fff;}
+#modeIndicator{margin-left:0.5rem;font-weight:600;color:#fff;}
 
-/* Header Animated Blobs */
+/* Blobs */
 .header-bg{position:absolute;width:100%;height:100%;top:0;left:0;overflow:hidden;z-index:1;}
 .blob{position:absolute;width:200px;height:200px;opacity:0.3;animation:float 15s infinite alternate ease-in-out;}
 .blob1{top:-50px;left:-50px;}
@@ -19,8 +20,6 @@ header h1{font-size:3rem;z-index:2;position:relative;background:linear-gradient(
 /* Main */
 main{padding:2rem;max-width:1200px;margin:auto;position:relative;z-index:2;}
 .card-section{background:#fff;padding:2rem;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.1);margin-bottom:2rem;}
-
-/* Inputs & Buttons */
 input[type=text]{width:100%;padding:0.7rem;margin:0.5rem 0;border-radius:8px;border:1px solid #ccc;font-size:1rem;}
 button{background:linear-gradient(135deg,#9013fe,#4a90e2);color:white;padding:0.6rem 1rem;border:none;border-radius:8px;cursor:pointer;transition:0.3s;}
 button:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(0,0,0,0.15);}
@@ -36,12 +35,21 @@ button:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(0,0,0,0.15);}
 .paper-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#9013fe,#4a90e2);opacity:0.05;pointer-events:none;border-radius:12px;}
 .paper-card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.15);}
 .paper-card h4{color:#4a90e2;margin-bottom:0.5rem;}
-.delete-btn{margin-top:0.5rem;background:#e74c3c;}
-.delete-btn:hover{background:#c0392b;}
+.view-btn{margin-top:0.5rem;background:#4a90e2;color:white;width:100%;border-radius:6px;padding:0.5rem;cursor:pointer;transition:0.2s;}
+.view-btn:hover{background:#9013fe;}
+
+/* Modal */
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:center;z-index:1000;transition:opacity 0.3s;}
+.modal-content{background:#fff;padding:2rem;border-radius:12px;max-width:600px;width:90%;position:relative;overflow-y:auto;max-height:80vh;}
+.modal-content h2{color:#4a90e2;margin-bottom:1rem;}
+.modal-content p{margin-bottom:0.5rem;}
+.close{position:absolute;top:0.5rem;right:1rem;font-size:2rem;cursor:pointer;color:#333;}
 
 /* Dark Mode */
 body.dark-mode{background:#1e1e1e;color:#ddd;}
 body.dark-mode .card-section{background:#2c2c2c;box-shadow:0 4px 15px rgba(255,255,255,0.05);}
 body.dark-mode .paper-card{background:#333;box-shadow:0 2px 8px rgba(255,255,255,0.05);}
-body.dark-mode button,body.dark-mode .category-btn{background:#9013fe;}
-body.dark-mode .delete-btn{background:#e74c3c;}
+body.dark-mode button,.dark-mode .category-btn{background:#9013fe;}
+body.dark-mode .view-btn{background:#9013fe;}
+body.dark-mode .modal-content{background:#2c2c2c;color:#ddd;}
+body.dark-mode .close{color:#fff;}
