@@ -8,9 +8,11 @@ fetch('papers.json').then(res=>res.json()).then(data=>papers=data);
 // Login
 document.getElementById('loginBtn')?.addEventListener('click',()=>{
   const name=document.getElementById('studentName').value.trim();
-  if(name){studentName=name;
+  if(name){
+    studentName=name;
     document.getElementById('login-section').classList.add('hidden');
-    document.getElementById('main-section').classList.remove('hidden');}
+    document.getElementById('main-section').classList.remove('hidden');
+  }
 });
 
 // Category buttons
@@ -30,7 +32,7 @@ document.getElementById('searchInput')?.addEventListener('input',e=>{
 
 // Render Papers with View Full Study
 function renderPapers(category=null,dataset=null){
-  const container=document.getElementById('papers-container')||document.getElementById('admin-papers-container');
+  const container=document.getElementById('papers-container');
   container.innerHTML='';
   const data=dataset||(category?{[category]:papers[category]}:papers);
   for(let cat in data){
@@ -58,11 +60,11 @@ function renderPapers(category=null,dataset=null){
 }
 
 // Modal close
-document.getElementById('closeModal').addEventListener('click',()=>{
-  document.getElementById('modal').classList.add('hidden');
-});
-document.getElementById('modal').addEventListener('click',e=>{
-  if(e.target.id==='modal') e.target.classList.add('hidden');
+const modal=document.getElementById('modal');
+const closeModal=document.getElementById('closeModal');
+closeModal.addEventListener('click',()=>modal.classList.add('hidden'));
+modal.addEventListener('click',e=>{
+  if(e.target===modal) modal.classList.add('hidden');
 });
 
 // Dark/Light Mode Indicator
@@ -70,5 +72,13 @@ const modeIndicator=document.getElementById('modeIndicator');
 const darkToggle=document.getElementById('darkModeToggle');
 darkToggle.addEventListener('change',()=>{
   document.body.classList.toggle('dark-mode');
-  modeIndicator.textContent=document.body.classList.contains('dark-mode')?'Dark Mode':'Light Mode';
+  if(document.body.classList.contains('dark-mode')){
+    modeIndicator.textContent='Dark Mode';
+    modeIndicator.classList.remove('light');
+    modeIndicator.classList.add('dark');
+  } else {
+    modeIndicator.textContent='Light Mode';
+    modeIndicator.classList.remove('dark');
+    modeIndicator.classList.add('light');
+  }
 });
