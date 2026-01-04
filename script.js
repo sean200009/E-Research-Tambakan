@@ -1,72 +1,58 @@
-let papers = {};
 let currentField = null;
 
-// Load papers.json dynamically with cache-busting
-async function loadPapers() {
-  try {
-    const response = await fetch(`papers.json?t=${Date.now()}`);
-    papers = await response.json();
-  } catch (err) {
-    console.error("Failed to load papers.json", err);
-  }
-}
-loadPapers();
+// Replace with your real papers.json or preloaded JSON
+const papers = {
+  "MCS":[{"title":"Machine Learning Basics for Junior Students","author":"Garcia, et al.","year":2025,"abstract":"This study introduces fundamental concepts of machine learning, including supervised and unsupervised learning, to help junior high students explore computational models and basic AI applications.","keywords":["machine learning","junior high","AI","computational thinking"]}],
+  "RIM":[{"title":"Arduino-Based Smart Traffic Light System for EV Prioritization","author":"Briol, et al.","year":2026,"abstract":"Traffic congestion has become a wide issue in urban areas, affecting the efficiency of transportation, the safety of roads, and the city’s sustainability. Traditional traffic light systems, operated on fixed timing, fail to adapt to real-time traffic conditions. This study proposes a cost-effective traffic light system utilizing Arduino Mega 2560 as the primary microcontroller, integrated with an ESP32 camera and an IR sensor. The system is designed to change traffic signal based on real-time traffic volume and EVI. Conducted at a prototype simulation of road traffic in the Masbate City, this study aims to enhance traffic management by implementing Arduino-based processing. The system integrates the real-time changing of signal lights to reduce congestion, improve overall traffic flow, and prioritize EV. The research findings indicate that the system accurately responds to traffic volumes, precisely identifies EV, and effectively prioritizes EV. The study highlights the potential of smart technologies in modernizing traffic control systems, offering a scalable and cost-effective solution for small-scale urban intersections. Future research should explore further enhancements, such the integration of additional sensor technologies for more precise vehicle detection, integration of RFID systems, and the conduct of field testing.","keywords":["smart technologies","traffic congestion","Arduino Mega 2560","ESP32 Camera","vehicle classification"]}],
+  "LS":[{"title":"Learning Styles and Effective Study Techniques","author":"Lopez, et al.","year":2024,"abstract":"This research investigates different learning styles among junior high students and explores how tailored study techniques can improve comprehension and retention of information across various subjects.","keywords":["learning styles","study techniques","junior high","education"]}],
+  "PS":[{"title":"Psychological Effects of Social Media on Adolescents","author":"Santos, et al.","year":2025,"abstract":"This study examines how daily social media usage affects the mental health, attention span, and social interactions of junior high students, highlighting both benefits and potential risks of digital engagement.","keywords":["psychology","social media","adolescents","mental health"]}],
+  "STEMIE":[{"title":"Introduction to STEM Robotics Projects","author":"Diaz, et al.","year":2025,"abstract":"This research introduces STEM-focused robotics projects for junior high students, providing step-by-step guides to build and program simple robots to enhance problem-solving, engineering skills, and creativity.","keywords":["STEM","robotics","junior high","engineering","creativity"]}]
+};
 
-function selectField(field) {
+// Select field
+function selectField(field){
   currentField = field;
   renderPapers();
 }
 
-function renderPapers() {
+// Render papers
+function renderPapers(){
   const container = document.getElementById('paperContainer');
   container.innerHTML = '';
-  if (!currentField || !papers[currentField]) return;
-
+  if(!currentField) return;
   const query = document.getElementById('search').value.toLowerCase();
 
   papers[currentField]
-    .filter(p => p.title.toLowerCase().includes(query) || p.keywords.join().toLowerCase().includes(query))
-    .forEach(paper => {
+    .filter(p=>p.title.toLowerCase().includes(query)||p.keywords.join().includes(query))
+    .forEach(paper=>{
       const div = document.createElement('div');
-      div.className = 'paper-card';
-      div.innerHTML = `<strong>${paper.title}</strong><br>
-        <small>${paper.author} (${paper.year})</small><br>
-        ${paper.keywords.map(k => `<span class='tag'>${k}</span>`).join('')}`;
-      div.onclick = () => openModal(paper);
+      div.className='paper-card';
+      div.innerHTML=`<strong>${paper.title}</strong><small>${paper.author} (${paper.year})</small><br>${paper.keywords.map(k=>`<span class="tag">${k}</span>`).join('')}`;
+      div.onclick=()=>openModal(paper);
       container.appendChild(div);
     });
 }
 
-function openModal(p) {
-  document.getElementById('modalTitle').innerText = p.title;
-  document.getElementById('modalAuthor').innerText = p.author;
-  document.getElementById('modalYear').innerText = p.year;
-  document.getElementById('modalAbstract').innerText = p.abstract;
-  document.getElementById('modalKeywords').innerText = p.keywords.join(', ');
-  document.getElementById('modal').style.display = 'flex';
+// Modal
+function openModal(p){
+  document.getElementById('modalTitle').innerText=p.title;
+  document.getElementById('modalAuthor').innerText=p.author;
+  document.getElementById('modalYear').innerText=p.year;
+  document.getElementById('modalAbstract').innerText=p.abstract;
+  document.getElementById('modalKeywords').innerText=p.keywords.join(', ');
+  document.getElementById('modal').style.display='flex';
 }
+function closeModal(){document.getElementById('modal').style.display='none';}
 
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
+// Login
+function login(){
+  const name=document.getElementById('username').value;
+  if(!name) return alert('Enter your name');
+  localStorage.setItem('studentName',name);
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('app').style.display='block';
 }
-
-function login() {
-  const name = document.getElementById('username').value;
-  if (!name) return alert('Please enter your name');
-  localStorage.setItem('studentName', name);
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-}
-
-// Auto-login if name exists
-if (localStorage.getItem('studentName')) {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-}
-
-// Optional: register service worker for offline
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
-    .then(() => console.log('Service Worker Registered'))
-    .catch(err => console.log('Service Worker Failed', err));
+if(localStorage.getItem('studentName')){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('app').style.display='block';
 }
