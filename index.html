@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Research Repository</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Study Repository</title>
+  <link rel="stylesheet" href="style.css.txt">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div id="login-screen" class="overlay">
-        <div class="card">
-            <h2>Student Login</h2>
-            <input type="text" id="student-name" placeholder="Enter Full Name">
-            <button onclick="login()">Enter Repository</button>
-            <p><a href="admin.html" style="color: #666;">Admin Access</a></p>
-        </div>
+  <header>
+    <h1>School Study Repository</h1>
+    <div class="toggle-dark-mode">
+      <label>
+        Dark Mode
+        <input type="checkbox" id="darkModeToggle">
+      </label>
     </div>
+  </header>
 
-    <header>
-        <h1>School Archive</h1>
-        <button onclick="toggleDarkMode()" id="theme-btn">🌙 Dark Mode</button>
-        <div id="user-info"></div>
-    </header>
+  <section id="login-section">
+    <h2>Student Login</h2>
+    <input type="text" id="studentName" placeholder="Enter your name">
+    <button id="loginBtn">Login</button>
+  </section>
 
-    <div class="stats-bar" id="stats"></div>
-
-    <div class="search-box">
-        <input type="text" id="search-input" onkeyup="searchPapers()" placeholder="Search titles or keywords...">
+  <section id="main-section" class="hidden">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search studies...">
     </div>
+    <div id="stats"></div>
+    <div id="categories">
+      <button class="category-btn" data-category="MCS">MCS</button>
+      <button class="category-btn" data-category="RIM">RIM</button>
+      <button class="category-btn" data-category="LS">LS</button>
+      <button class="category-btn" data-category="PS">PS</button>
+      <button class="category-btn" data-category="STEMIE">STEMIE</button>
+    </div>
+    <div id="papers-container"></div>
+  </section>
 
-    <nav>
-        <button onclick="filterPapers('ALL')">All</button>
-        <button onclick="filterPapers('MCS')">MCS</button>
-        <button onclick="filterPapers('RIM')">RIM</button>
-        <button onclick="filterPapers('LS')">LS</button>
-        <button onclick="filterPapers('PS')">PS</button>
-        <button onclick="filterPapers('STEMIE')">STEMIE</button>
-    </nav>
-
-    <main id="paper-container"></main>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
