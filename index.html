@@ -4,101 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>E-Research Tambakan</title>
-
+<link rel="stylesheet" href="style.css">
 <style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f6f8;
-}
-
-header {
-  background: #1f4fd8;
-  color: white;
-  padding: 1.5rem;
-  text-align: center;
-}
-
-main {
-  max-width: 1100px;
-  margin: auto;
-  padding: 1.5rem;
-}
-
-.hidden { display: none; }
-
-input, select, button, textarea {
-  width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-button {
-  background: #1f4fd8;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-button.secondary {
-  background: #555;
-}
-
-.box {
-  background: white;
-  padding: 2rem;
-  width: 320px;
-  margin: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin-top: 3rem;
-}
-
-.fields {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.field-btn {
-  padding: 1rem;
-  background: white;
-  border-radius: 10px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  cursor: pointer;
-}
-
+/* Additional styles for collapsible cards */
 .paper-card {
   background: white;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-
-.tag {
-  background: #dbe4ff;
-  color: #1f4fd8;
-  padding: 2px 6px;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  margin-right: 4px;
+.paper-card.open {
+  background: #f0f4ff;
 }
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #eaeaea;
-  font-size: 0.85rem;
+.paper-card .abstract {
+  display: none;
+  margin-top: 0.5rem;
+}
+.paper-card.open .abstract {
+  display: block;
 }
 </style>
 </head>
-
 <body>
 
 <!-- STUDENT LOGIN -->
@@ -202,7 +131,7 @@ if (!localStorage.getItem("papers")) {
 function studentLogin() {
   const name = studentName.value.trim();
   if (!name) return alert("Enter your name");
-  
+
   studentLoginDiv(false);
   studentApp.classList.remove("hidden");
   welcomeStudent.innerText = `Welcome, ${name}!`;
@@ -248,14 +177,15 @@ function displayAllPapers() {
       papers[field].forEach(p => {
         html += `<div class="paper-card">
           <strong>${p.title}</strong><br>
-          <small>${p.author} (${p.year})</small><br>
-          <p>${p.abstract}</p>
+          <small>${p.author} (${p.year})</small>
+          <div class="abstract">${p.abstract}</div>
           ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
         </div>`;
       });
     }
   });
-  document.getElementById("papers").innerHTML = html || "No studies yet.";
+  document.getElementById("papers").innerHTML = html;
+  makeCardsClickable();
 }
 
 // Display papers by field
@@ -263,12 +193,20 @@ function selectField(field) {
   const div = papers[field].map(p =>
     `<div class="paper-card">
       <strong>${p.title}</strong><br>
-      <small>${p.author} (${p.year})</small><br>
-      <p>${p.abstract}</p>
+      <small>${p.author} (${p.year})</small>
+      <div class="abstract">${p.abstract}</div>
       ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
     </div>`
   ).join("");
-  document.getElementById("papers").innerHTML = div || "No studies yet.";
+  document.getElementById("papers").innerHTML = div;
+  makeCardsClickable();
+}
+
+// Make paper cards expandable
+function makeCardsClickable() {
+  document.querySelectorAll('.paper-card').forEach(card => {
+    card.onclick = () => card.classList.toggle('open');
+  });
 }
 
 // ADMIN PANEL
@@ -290,227 +228,5 @@ function addStudy() {
   displayAllPapers();
 }
 </script>
-
 </body>
 </html>
-
-button {
-  background: #1f4fd8;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-button.secondary {
-  background: #555;
-}
-
-.box {
-  background: white;
-  padding: 2rem;
-  width: 320px;
-  margin: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin-top: 3rem;
-}
-
-.fields {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.field-btn {
-  padding: 1rem;
-  background: white;
-  border-radius: 10px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  cursor: pointer;
-}
-
-.paper-card {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-}
-
-.tag {
-  background: #dbe4ff;
-  color: #1f4fd8;
-  padding: 2px 6px;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  margin-right: 4px;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #eaeaea;
-  font-size: 0.85rem;
-}
-</style>
-</head>
-
-<body>
-
-<!-- STUDENT LOGIN -->
-<div id="studentLogin" class="box">
-  <h3>Student Login</h3>
-  <input id="studentName" placeholder="Enter your name">
-  <button onclick="studentLogin()">Enter</button>
-  <hr>
-  <button class="secondary" onclick="showAdminLogin()">Admin Login</button>
-</div>
-
-<!-- ADMIN LOGIN -->
-<div id="adminLogin" class="box hidden">
-  <h3>Admin Login</h3>
-  <input id="adminUser" placeholder="Username">
-  <input id="adminPass" type="password" placeholder="Password">
-  <button onclick="adminLogin()">Login</button>
-  <button class="secondary" onclick="backToStudent()">Back</button>
-</div>
-
-<!-- STUDENT APP -->
-<div id="studentApp" class="hidden">
-<header>
-  <h1>E-Research Tambakan</h1>
-  <p id="welcomeStudent">Offline Research Index</p>
-  <button class="secondary" onclick="logout()">Logout</button>
-</header>
-
-<main>
-  <h2>Select Research Field</h2>
-  <div class="fields">
-    <button class="field-btn" onclick="selectField('MCS')">MCS</button>
-    <button class="field-btn" onclick="selectField('RIM')">RIM</button>
-    <button class="field-btn" onclick="selectField('LS')">LS</button>
-    <button class="field-btn" onclick="selectField('PS')">PS</button>
-    <button class="field-btn" onclick="selectField('STEMIE')">STEMIE</button>
-  </div>
-
-  <div id="papers"></div>
-</main>
-</div>
-
-<!-- ADMIN PANEL -->
-<div id="adminPanel" class="hidden">
-<header>
-  <h1>Admin Panel</h1>
-  <button class="secondary" onclick="logout()">Logout</button>
-</header>
-
-<main>
-  <h3>Add Study</h3>
-  <select id="field">
-    <option>MCS</option>
-    <option>RIM</option>
-    <option>LS</option>
-    <option>PS</option>
-    <option>STEMIE</option>
-  </select>
-  <input id="title" placeholder="Title">
-  <input id="author" placeholder="Author">
-  <input id="year" placeholder="Year">
-  <textarea id="abstract" placeholder="Abstract" style="width:100%;height:80px;"></textarea>
-  <input id="keywords" placeholder="Keywords (comma separated)">
-  <button onclick="addStudy()">Save Study</button>
-</main>
-</div>
-
-<footer>© 2026 E-Research Tambakan</footer>
-
-<script>
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "tambakan123";
-
-// DOM Elements
-const studentName = document.getElementById("studentName");
-const studentLoginDivElement = document.getElementById("studentLogin");
-const studentApp = document.getElementById("studentApp");
-const welcomeStudent = document.getElementById("welcomeStudent");
-
-const adminUser = document.getElementById("adminUser");
-const adminPass = document.getElementById("adminPass");
-const adminLoginDiv = document.getElementById("adminLogin");
-const adminPanel = document.getElementById("adminPanel");
-
-let papers = JSON.parse(localStorage.getItem("papers")) || {
-  MCS: [], RIM: [], LS: [], PS: [], STEMIE: []
-};
-
-// STUDENT LOGIN
-function studentLogin() {
-  const name = studentName.value.trim();
-  if (!name) return alert("Enter your name");
-  studentLoginDiv(false);
-  studentApp.classList.remove("hidden");
-  welcomeStudent.innerText = `Welcome, ${name}!`;
-}
-
-function studentLoginDiv(show) {
-  studentLoginDivElement.classList.toggle("hidden", !show);
-}
-
-// ADMIN LOGIN
-function adminLogin() {
-  if (adminUser.value === ADMIN_USER && adminPass.value === ADMIN_PASS) {
-    adminLoginDiv.classList.add("hidden");
-    adminPanel.classList.remove("hidden");
-  } else {
-    alert("Wrong credentials");
-  }
-}
-
-function showAdminLogin() {
-  studentLoginDiv(false);
-  adminLoginDiv.classList.remove("hidden");
-}
-
-function backToStudent() {
-  adminLoginDiv.classList.add("hidden");
-  studentLoginDiv(true);
-}
-
-// LOGOUT
-function logout() {
-  location.reload();
-}
-
-// STUDENT APP
-function selectField(field) {
-  const div = papers[field].map(p =>
-    `<div class="paper-card">
-      <strong>${p.title}</strong><br>
-      <small>${p.author} (${p.year})</small><br>
-      ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
-    </div>`
-  ).join("");
-  document.getElementById("papers").innerHTML = div || "No studies yet.";
-}
-
-// ADMIN PANEL
-function addStudy() {
-  const study = {
-    title: document.getElementById("title").value,
-    author: document.getElementById("author").value,
-    year: document.getElementById("year").value,
-    abstract: document.getElementById("abstract").value,
-    keywords: document.getElementById("keywords").value.split(",").map(k => k.trim())
-  };
-  papers[document.getElementById("field").value].push(study);
-  localStorage.setItem("papers", JSON.stringify(papers));
-  alert("Study saved!");
-}
-</script>
-
-</body>
-</html>
-
