@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Studies Repository</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css.txt">
+    <title>School Research Repository</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>School Studies Repository</h1>
-        <p>Offline access to copyrighted studies.</p>
-    </header>
-    
-    <div id="login-section">
-        <h2>Student Login</h2>
-        <form id="login-form">
-            <label for="student-name">Enter your full name:</label>
-            <input type="text" id="student-name" required>
-            <button type="submit">Access Repository</button>
-        </form>
-    </div>
-    
-    <div id="repository" style="display: none;">
-        <h2>Welcome, <span id="student-greeting"></span>!</h2>
-        <p>Select a field to view studies:</p>
-        <div class="fields">
-            <button class="field-btn" data-field="MCS">MCS (Machine Learning)</button>
-            <button class="field-btn" data-field="RIM">RIM (Robotics & IoT)</button>
-            <button class="field-btn" data-field="LS">LS (Learning Styles)</button>
-            <button class="field-btn" data-field="PS">PS (Psychology)</button>
-            <button class="field-btn" data-field="STEMIE">STEMIE (STEM Education)</button>
+    <div id="login-screen" class="overlay">
+        <div class="card">
+            <h2>Student Login</h2>
+            <input type="text" id="student-name" placeholder="Enter Full Name">
+            <button onclick="login()">Enter Repository</button>
+            <p><a href="admin.html" style="color: #666;">Admin Access</a></p>
         </div>
-        <div id="papers-list"></div>
-        <a href="admin.html">Admin Panel</a>
     </div>
-    
+
+    <header>
+        <h1>School Archive</h1>
+        <button onclick="toggleDarkMode()" id="theme-btn">🌙 Dark Mode</button>
+        <div id="user-info"></div>
+    </header>
+
+    <div class="stats-bar" id="stats"></div>
+
+    <div class="search-box">
+        <input type="text" id="search-input" onkeyup="searchPapers()" placeholder="Search titles or keywords...">
+    </div>
+
+    <nav>
+        <button onclick="filterPapers('ALL')">All</button>
+        <button onclick="filterPapers('MCS')">MCS</button>
+        <button onclick="filterPapers('RIM')">RIM</button>
+        <button onclick="filterPapers('LS')">LS</button>
+        <button onclick="filterPapers('PS')">PS</button>
+        <button onclick="filterPapers('STEMIE')">STEMIE</button>
+    </nav>
+
+    <main id="paper-container"></main>
+
     <script src="script.js"></script>
 </body>
 </html>
