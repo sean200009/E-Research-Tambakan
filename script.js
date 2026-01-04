@@ -1,107 +1,81 @@
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "tambakan123";
+// Load papers data
+let papersData = {};
+fetch('papers.json')
+    .then(response => response.json())
+    .then(data => papersData = data);
 
-// DOM Elements
-const studentName = document.getElementById("studentName");
-const studentLoginDivElement = document.getElementById("studentLogin");
-const studentApp = document.getElementById("studentApp");
-const welcomeStudent = document.getElementById("welcomeStudent");
-const adminUser = document.getElementById("adminUser");
-const adminPass = document.getElementById("adminPass");
-const adminLoginDiv = document.getElementById("adminLogin");
-const papersDiv = document.getElementById("papers");
-
-let papers = JSON.parse(localStorage.getItem("papers")) || {};
-
-// Load papers.json if localStorage empty
-if (!localStorage.getItem("papers")) {
-  fetch('papers.json')
-    .then(res => res.json())
-    .then(data => {
-      papers = data;
-      localStorage.setItem('papers', JSON.stringify(papers));
-    });
-} else {
-  papers = JSON.parse(localStorage.getItem("papers"));
-}
-
-// STUDENT LOGIN
-function studentLogin() {
-  const name = studentName.value.trim();
-  if (!name) return alert("Enter your name");
-  studentLoginDiv(false);
-  studentApp.classList.remove("hidden");
-  welcomeStudent.innerText = `Welcome, ${name}!`;
-  displayAllPapers();
-}
-
-function studentLoginDiv(show) {
-  studentLoginDivElement.classList.toggle("hidden", !show);
-}
-
-// ADMIN LOGIN
-function adminLogin() {
-  if (adminUser.value === ADMIN_USER && adminPass.value === ADMIN_PASS) {
-    adminLoginDiv.classList.add("hidden");
-    alert("Admin access granted. Use console or UI to add studies.");
-  } else {
-    alert("Wrong credentials");
-  }
-}
-
-function showAdminLogin() {
-  studentLoginDiv(false);
-  adminLoginDiv.classList.remove("hidden");
-}
-
-function backToStudent() {
-  adminLoginDiv.classList.add("hidden");
-  studentLoginDiv(true);
-}
-
-// LOGOUT
-function logout() {
-  location.reload();
-}
-
-// DISPLAY ALL PAPERS
-function displayAllPapers() {
-  const allFields = Object.keys(papers);
-  let html = "";
-  allFields.forEach(field => {
-    if (papers[field].length > 0) {
-      html += `<h3>${field}</h3>`;
-      papers[field].forEach(p => {
-        html += `<div class="paper-card">
-                  <strong>${p.title}</strong><br>
-                  <small>${p.author} (${p.year})</small><br>
-                  <p>${p.abstract}</p>
-                  ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
-                </div>`;
-      });
+// Student login
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('student-name').value.trim();
+    if (name) {
+        document.getElementById('student-greeting').textContent = name;
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('repository').style.display = 'block';
     }
-  });
-  papersDiv.innerHTML = html || "No studies yet.";
+});
+
+// Display papers by field
+document.querySelectorAll('.field-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const field = this.dataset.field;
+        const papers = papersData[field] || [];
+        const list = document.getElementById('papers-list');
+        list.innerHTML = `<h3>${field} Studies</h3>`;
+        papers.forEach(paper => {
+            list.innerHTML += `
+                <div class="paper">
+                    <h4>${paper.title}</h4>
+                    <p><strong>Author:</strong> ${paper.author}</p>
+                    <p><strong>Year:</strong> ${paper.year}</p>
+                    <p><strong>Abstract:</strong> ${paper.abstract}</p>
+                    <p><strong>Keywords:</strong> ${paper.keywords.join(', ')}</p>
+                </div>
+            `;
+        });
+    });
+});
+
+// Admin: Display papers
+function loadAdminPapers() {
+    const list = document.getElementById('admin-papers-list');
+    list.innerHTML = '';
+    Object.keys(papersData).forEach(field => {
+        papersData[field].forEach(paper => {
+            list.innerHTML += `
+                <div class="paper">
+                    <h4>${paper.title} (${field})</h4>
+                    <p>Author: ${paper.author} | Year: ${paper.year}</p>
+                    <button onclick="deletePaper('${field}', '${paper.title}')">Delete</button>
+                </div>
+            `;
+        });
+    });
 }
 
-// FILTER BY FIELD
-function selectField(field) {
-  const div = papers[field].map(p =>
-    `<div class="paper-card">
-      <strong>${p.title}</strong><br>
-      <small>${p.author} (${p.year})</small><br>
-      <p>${p.abstract}</p>
-      ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
-    </div>`
-  ).join("");
-  papersDiv.innerHTML = div || "No studies yet.";
+// Admin: Add new paper
+document.getElementById('add-paper-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const field = document.getElementById('field').value;
+    const newPaper = {
+        title: document.getElementById('title').value,
+        author: document.getElementById('author').value,
+        year: parseInt(document.getElementById('year').value),
+        abstract: document.getElementById('abstract').value,
+        keywords: document.getElementById('keywords').value.split(',').map(k => k.trim())
+    };
+    papersData[field].push(newPaper);
+    loadAdminPapers();
+    this.reset();
+});
+
+// Admin: Delete paper (basic, no persistence)
+function deletePaper(field, title) {
+    papersData[field] = papersData[field].filter(p => p.title !== title);
+    loadAdminPapers();
 }
 
-// ADMIN PANEL ADD STUDY
-function addStudy(field, title, author, year, abstract, keywords) {
-  const study = { title, author, year, abstract, keywords };
-  if (!papers[field]) papers[field] = [];
-  papers[field].push(study);
-  localStorage.setItem("papers", JSON.stringify(papers));
-  alert("Study saved!");
+// Load admin papers on page load
+if (window.location.pathname.includes('admin.html')) {
+    loadAdminPapers();
 }
