@@ -1,68 +1,69 @@
-<script>
-let papers = {};
-let currentField = null;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Research Tambakan</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-// Load papers from papers.json
-async function loadPapers() {
-  try {
-    const response = await fetch(`papers.json?t=${Date.now()}`); // cache-busting
-    papers = await response.json();
-  } catch (err) {
-    console.error("Failed to load papers.json", err);
-  }
-}
+<!-- Login Screen -->
+<div id="loginScreen">
+  <div id="loginBox">
+    <h3>Student Login</h3>
+    <input id="username" placeholder="Enter your name" />
+    <br><br>
+    <button onclick="login()">Enter</button>
+    <p class="note">Offline – no internet required</p>
+  </div>
+</div>
 
-// Call loadPapers on page load
-loadPapers();
+<!-- Main App -->
+<div id="app" style="display:none;">
+  <header>
+    <h1>E-Research Tambakan</h1>
+    <p>Offline Research Index for Junior High School Students</p>
+  </header>
 
-function selectField(field) {
-  currentField = field;
-  renderPapers();
-}
+  <main>
+    <div class="controls">
+      <input id="search" placeholder="Search by title or keyword" oninput="renderPapers()" />
+    </div>
 
-function renderPapers() {
-  const container = document.getElementById('paperContainer');
-  container.innerHTML = '';
-  if (!currentField || !papers[currentField]) return;
+    <h2>Select a Research Field</h2>
+    <div class="fields">
+      <button class="field-btn" onclick="selectField('MCS')">MCS</button>
+      <button class="field-btn" onclick="selectField('RIM')">RIM</button>
+      <button class="field-btn" onclick="selectField('LS')">LS</button>
+      <button class="field-btn" onclick="selectField('PS')">PS</button>
+      <button class="field-btn" onclick="selectField('STEMIE')">STEMIE</button>
+    </div>
 
-  const query = document.getElementById('search').value.toLowerCase();
+    <div id="paperContainer"></div>
+  </main>
 
-  papers[currentField]
-    .filter(p => p.title.toLowerCase().includes(query) || p.keywords.join().toLowerCase().includes(query))
-    .forEach(paper => {
-      const div = document.createElement('div');
-      div.className = 'paper-card';
-      div.innerHTML = `<strong>${paper.title}</strong><br>
-        <small>${paper.author} (${paper.year})</small><br>
-        ${paper.keywords.map(k => `<span class='tag'>${k}</span>`).join('')}`;
-      div.onclick = () => openModal(paper);
-      container.appendChild(div);
-    });
-}
+  <footer>
+    <p>© 2026 E-Research Tambakan | Educational Brainstorming Only</p>
+  </footer>
+</div>
 
-function openModal(p) {
-  document.getElementById('modalTitle').innerText = p.title;
-  document.getElementById('modalAuthor').innerText = p.author;
-  document.getElementById('modalYear').innerText = p.year;
-  document.getElementById('modalAbstract').innerText = p.abstract;
-  document.getElementById('modalKeywords').innerText = p.keywords.join(', ');
-  document.getElementById('modal').style.display = 'flex';
-}
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">X</span>
+    <h3 id="modalTitle"></h3>
+    <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+    <p><strong>Year:</strong> <span id="modalYear"></span></p>
+    <p><strong>Abstract:</strong></p>
+    <p id="modalAbstract"></p>
+    <p><strong>Keywords:</strong> <span id="modalKeywords"></span></p>
+    <p class="note">Full paper not included (copyright protected)</p>
+  </div>
+</div>
 
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-}
+<script src="script.js"></script>
 
-function login() {
-  const name = document.getElementById('username').value;
-  if (!name) return alert('Please enter your name');
-  localStorage.setItem('studentName', name);
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-}
-
-if (localStorage.getItem('studentName')) {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-}
-</script>
+</body>
+</html>

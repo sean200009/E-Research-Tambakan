@@ -1,20 +1,15 @@
 let papers = {};
 let currentField = null;
 
-// Function to load latest papers.json
+// Load papers.json dynamically with cache-busting
 async function loadPapers() {
   try {
-    // Force browser to fetch fresh copy using cache-busting query
     const response = await fetch(`papers.json?t=${Date.now()}`);
     papers = await response.json();
-    // Re-render papers if a field is already selected
-    if (currentField) renderPapers();
   } catch (err) {
     console.error("Failed to load papers.json", err);
   }
 }
-
-// Call loadPapers at startup
 loadPapers();
 
 function selectField(field) {
@@ -63,13 +58,13 @@ function login() {
   document.getElementById('app').style.display = 'block';
 }
 
-// Auto-login if already stored
+// Auto-login if name exists
 if (localStorage.getItem('studentName')) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
 }
 
-// Register service worker for offline
+// Optional: register service worker for offline
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
     .then(() => console.log('Service Worker Registered'))
