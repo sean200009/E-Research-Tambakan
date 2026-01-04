@@ -1,24 +1,21 @@
-const CACHE_NAME = 'studies-repo-v1';
+const CACHE_NAME = 'study-repo-cache-v1';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/admin.html',
-    '/manifest.json',
-    '/papers.json',
-    '/script.js',
-    '/style.css.txt'
+  'index.html',
+  'admin.html',
+  'style.css.txt',
+  'script.js',
+  'papers.json',
+  'manifest.json'
 ];
 
 self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
-    );
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+  );
 });
 
 self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => response || fetch(event.request))
-    );
+  event.respondWith(
+    caches.match(event.request).then(response => response || fetch(event.request))
+  );
 });
