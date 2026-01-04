@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-Research Tambakan</title>
+  <title>E-Research Tambakan (Offline)</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
 </head>
@@ -12,9 +12,9 @@
 <div id="loginScreen">
   <div id="loginBox">
     <h3>Student Login</h3>
-    <input id="username" placeholder="Enter your name" style="width:100%;padding:0.5rem;" />
+    <input id="username" placeholder="Enter your name" />
     <br><br>
-    <button onclick="login()" style="width:100%;padding:0.6rem;">Enter</button>
+    <button onclick="login()">Enter</button>
     <p style="font-size:0.8rem;color:#666;">Offline – no internet required</p>
   </div>
 </div>
@@ -27,7 +27,7 @@
 
 <main>
   <div class="controls">
-    <input id="search" placeholder="Search by title or keyword" oninput="renderPapers()" />
+    <input id="search" placeholder="Search by title or keyword" />
   </div>
 
   <h2>Select a Research Field</h2>
@@ -61,12 +61,6 @@
   </div>
 </div>
 
-<script src="script.js" defer></script>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(() => console.log('Service Worker Registered'));
-  }
-</script>
+<script src="script.js"></script>
 </body>
 </html>
