@@ -1,9 +1,31 @@
-<section id="pin-section" class="card-section">
-  <h2>Admin Access</h2>
-  <input type="password" id="pinInput" placeholder="Enter Admin PIN">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin – e-research tambakan</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Admin Panel</h1>
+</header>
+
+<main>
+
+<section id="pinSection" class="card-section">
+  <h2>Enter Admin PIN</h2>
+  <input type="password" id="pinInput">
   <button id="pinBtn">Unlock</button>
 </section>
 
-<section id="admin-section" class="card-section hidden">
-  <!-- admin content -->
+<section id="adminSection" class="card-section hidden">
+  <h2>Manage Studies</h2>
+  <div id="adminPapersContainer" class="grid"></div>
 </section>
+
+</main>
+
+<script src="/admin-script.js"></script>
+</body>
+</html>
