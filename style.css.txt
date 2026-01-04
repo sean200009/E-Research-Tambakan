@@ -1,104 +1,73 @@
+/* Reset & Global */
+* { margin:0; padding:0; box-sizing:border-box; }
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f7f8;
+  background: #f4f7f8;
   color: #333;
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
 }
+.hidden { display:none; }
 
+/* Header */
 header {
-  background: linear-gradient(135deg, #4a90e2, #9013fe);
-  color: white;
+  background: linear-gradient(135deg, #9013fe, #4a90e2);
+  color: #fff;
   padding: 1rem;
   text-align: center;
   position: sticky;
-  top: 0;
+  top:0;
+  z-index: 10;
 }
+header h1 { font-size:2rem; }
+.header-controls { position:absolute; right:1rem; top:1rem; }
+.toggle-dark-mode { cursor:pointer; font-size:1.2rem; color:#fff; }
 
-h1, h2, h3, h4 {
-  margin: 0.5rem 0;
+/* Main */
+main { padding:2rem; max-width:1200px; margin:auto; }
+.card-section { background:#fff; padding:2rem; border-radius:15px; box-shadow:0 4px 15px rgba(0,0,0,0.1); margin-bottom:2rem; }
+input[type=text] {
+  width:100%; padding:0.7rem; margin:0.5rem 0; border-radius:8px; border:1px solid #ccc; font-size:1rem;
 }
-
-.toggle-dark-mode {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
+button { 
+  background: linear-gradient(135deg, #9013fe, #4a90e2); 
+  color:white; padding:0.6rem 1rem; border:none; border-radius:8px; cursor:pointer; font-size:1rem; transition: transform 0.2s;
 }
+button:hover { transform:scale(1.05); }
 
-#login-section, #main-section, #admin-section {
-  padding: 1rem 2rem;
-}
+/* Categories */
+.categories { display:flex; gap:1rem; flex-wrap:wrap; margin:1rem 0; }
+.category-btn { flex:1; min-width:80px; }
 
-.hidden { display: none; }
-
-.search-bar input {
-  width: 100%;
-  padding: 0.5rem;
-  margin: 1rem 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-#categories {
-  margin-bottom: 1rem;
-}
-
-.category-btn {
-  margin: 0.3rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  background: #4a90e2;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.category-btn:hover { background: #357ABD; }
-
+/* Grid for Papers */
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; margin-top:1rem; }
 .paper-card {
-  background: white;
-  padding: 1rem;
-  margin: 0.5rem 0;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background:#fff; padding:1rem; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
+.paper-card:hover { transform:translateY(-5px); box-shadow:0 6px 18px rgba(0,0,0,0.15); }
+.paper-card h4 { color:#4a90e2; margin-bottom:0.5rem; }
+.delete-btn { margin-top:0.5rem; background:#e74c3c; }
+.delete-btn:hover { background:#c0392b; }
 
-.delete-btn {
-  margin-top: 0.5rem;
-  padding: 0.3rem 0.6rem;
-  background: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+/* Stats */
+.stats { margin:1rem 0; font-weight:bold; }
 
-.delete-btn:hover { background: #c0392b; }
+/* Footer */
+footer { text-align:center; margin-top:3rem; color:#555; font-size:0.9rem; }
 
+/* Back Button */
 .back-btn {
-  display: inline-block;
-  margin: 0.5rem 0;
-  padding: 0.5rem 1rem;
-  background: #4a90e2;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+  display:inline-block; margin:0.5rem 0; padding:0.5rem 1rem;
+  background: #4a90e2; color:#fff; text-decoration:none; border-radius:8px; transition: transform 0.2s;
 }
+.back-btn:hover { transform:scale(1.05); }
 
-.dark-mode {
-  background-color: #1e1e1e;
-  color: #ddd;
+/* Dark Mode */
+body.dark-mode {
+  background:#1e1e1e; color:#ddd;
 }
-
-.dark-mode .paper-card {
-  background-color: #2c2c2c;
-  box-shadow: 0 2px 8px rgba(255,255,255,0.1);
-}
-
-.dark-mode .category-btn, .dark-mode .back-btn {
-  background: #9013fe;
-}
-
-.dark-mode .delete-btn {
-  background: #e74c3c;
-}
+body.dark-mode .card-section { background:#2c2c2c; box-shadow:0 4px 15px rgba(255,255,255,0.05); }
+body.dark-mode .paper-card { background:#333; box-shadow:0 2px 8px rgba(255,255,255,0.05); }
+body.dark-mode button, body.dark-mode .category-btn, body.dark-mode .back-btn { background:#9013fe; }
+body.dark-mode .delete-btn { background:#e74c3c; }
