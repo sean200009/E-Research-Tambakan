@@ -1,11 +1,11 @@
 {
   "MCS": [
     {
-      "title": "Mathematics Cognitive Strategies in Junior High",
-      "author": "Smith, et al.",
+      "title": "Machine Learning Basics for Junior Students",
+      "author": "Garcia, et al.",
       "year": 2025,
-      "abstract": "This study explores cognitive strategies used by junior high school students to solve mathematics problems, aiming to enhance understanding and problem-solving efficiency.",
-      "keywords": ["mathematics", "cognitive strategies", "junior high", "MCS"]
+      "abstract": "This study introduces fundamental concepts of machine learning, including supervised and unsupervised learning, to help junior high students explore computational models and basic AI applications.",
+      "keywords": ["machine learning", "junior high", "AI", "computational thinking"]
     }
   ],
   "RIM": [
@@ -19,29 +19,29 @@
   ],
   "LS": [
     {
-      "title": "Language Skills Development in Junior High",
-      "author": "Johnson, et al.",
+      "title": "Learning Styles and Effective Study Techniques",
+      "author": "Lopez, et al.",
       "year": 2024,
-      "abstract": "This research examines methods to improve reading comprehension and writing skills among junior high students, focusing on interactive and collaborative learning strategies.",
-      "keywords": ["language skills", "reading", "writing", "junior high", "LS"]
+      "abstract": "This research investigates different learning styles among junior high students and explores how tailored study techniques can improve comprehension and retention of information across various subjects.",
+      "keywords": ["learning styles", "study techniques", "junior high", "education"]
     }
   ],
   "PS": [
     {
-      "title": "Psychology of Adolescent Motivation",
-      "author": "Lee, et al.",
-      "year": 2023,
-      "abstract": "This study explores the factors affecting motivation in junior high school students, including peer influence, teacher support, and self-efficacy, aiming to design better engagement strategies.",
-      "keywords": ["psychology", "motivation", "adolescents", "junior high", "PS"]
+      "title": "Psychological Effects of Social Media on Adolescents",
+      "author": "Santos, et al.",
+      "year": 2025,
+      "abstract": "This study examines how daily social media usage affects the mental health, attention span, and social interactions of junior high students, highlighting both benefits and potential risks of digital engagement.",
+      "keywords": ["psychology", "social media", "adolescents", "mental health"]
     }
   ],
   "STEMIE": [
     {
-      "title": "STEM Integration for Environmental Awareness",
-      "author": "Garcia, et al.",
+      "title": "Introduction to STEM Robotics Projects",
+      "author": "Diaz, et al.",
       "year": 2025,
-      "abstract": "This study investigates the impact of integrating STEM activities into environmental education projects, helping junior high students understand sustainability and practical science applications.",
-      "keywords": ["STEM", "environment", "education", "junior high", "STEMIE"]
+      "abstract": "This research introduces STEM-focused robotics projects for junior high students, providing step-by-step guides to build and program simple robots to enhance problem-solving, engineering skills, and creativity.",
+      "keywords": ["STEM", "robotics", "junior high", "engineering", "creativity"]
     }
   ]
 }

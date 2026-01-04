@@ -6,7 +6,8 @@ const filesToCache = [
   '/script.js',
   '/papers.json',
   '/manifest.json',
-
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
 self.addEventListener('install', e => {
@@ -22,4 +23,3 @@ self.addEventListener('fetch', e => {
       .then(response => response || fetch(e.request))
   );
 });
-
