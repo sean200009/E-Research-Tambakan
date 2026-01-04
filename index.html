@@ -4,9 +4,98 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>E-Research Tambakan</title>
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css.txt">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+}
+
+header {
+  background: #1f4fd8;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1.5rem;
+}
+
+.hidden { display: none; }
+
+input, select, button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+button {
+  background: #1f4fd8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #555;
+}
+
+.box {
+  background: white;
+  padding: 2rem;
+  width: 320px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.field-btn {
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.paper-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.tag {
+  background: #dbe4ff;
+  color: #1f4fd8;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #eaeaea;
+  font-size: 0.85rem;
+}
+</style>
 </head>
+
 <body>
 
 <!-- STUDENT LOGIN -->
@@ -31,7 +120,7 @@
 <div id="studentApp" class="hidden">
 <header>
   <h1>E-Research Tambakan</h1>
-  <p id="welcomeStudent">Offline Research Index</p>
+  <p>Offline Research Index</p>
   <button class="secondary" onclick="logout()">Logout</button>
 </header>
 
@@ -49,8 +138,99 @@
 </main>
 </div>
 
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="hidden">
+<header>
+  <h1>Admin Panel</h1>
+  <button class="secondary" onclick="logout()">Logout</button>
+</header>
+
+<main>
+  <h3>Add Study</h3>
+  <select id="field">
+    <option>MCS</option>
+    <option>RIM</option>
+    <option>LS</option>
+    <option>PS</option>
+    <option>STEMIE</option>
+  </select>
+  <input id="title" placeholder="Title">
+  <input id="author" placeholder="Author">
+  <input id="year" placeholder="Year">
+  <textarea id="abstract" placeholder="Abstract" style="width:100%;height:80px;"></textarea>
+  <input id="keywords" placeholder="Keywords (comma separated)">
+  <button onclick="addStudy()">Save Study</button>
+</main>
+</div>
+
 <footer>© 2026 E-Research Tambakan</footer>
 
-<script src="script.js"></script>
+<script>
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "tambakan123";
+
+let papers = JSON.parse(localStorage.getItem("papers")) || {
+  MCS: [], RIM: [], LS: [], PS: [], STEMIE: []
+};
+
+function studentLogin() {
+  const name = studentName.value.trim();
+  if (!name) return alert("Enter your name");
+  studentLoginDiv(false);
+  studentApp.classList.remove("hidden");
+}
+
+function adminLogin() {
+  if (adminUser.value === ADMIN_USER && adminPass.value === ADMIN_PASS) {
+    adminLogin.classList.add("hidden");
+    adminPanel.classList.remove("hidden");
+  } else {
+    alert("Wrong credentials");
+  }
+}
+
+function showAdminLogin() {
+  studentLoginDiv(false);
+  adminLogin.classList.remove("hidden");
+}
+
+function backToStudent() {
+  adminLogin.classList.add("hidden");
+  studentLoginDiv(true);
+}
+
+function studentLoginDiv(show) {
+  studentLogin.classList.toggle("hidden", !show);
+}
+
+function logout() {
+  location.reload();
+}
+
+function selectField(field) {
+  const div = papers[field].map(p =>
+    `<div class="paper-card">
+      <strong>${p.title}</strong><br>
+      <small>${p.author} (${p.year})</small><br>
+      ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
+    </div>`
+  ).join("");
+  document.getElementById("papers").innerHTML = div || "No studies yet.";
+}
+
+function addStudy() {
+  const study = {
+    title: title.value,
+    author: author.value,
+    year: year.value,
+    abstract: abstract.value,
+    keywords: keywords.value.split(",").map(k => k.trim())
+  };
+  papers[field.value].push(study);
+  localStorage.setItem("papers", JSON.stringify(papers));
+  alert("Study saved!");
+}
+</script>
+
 </body>
 </html>
