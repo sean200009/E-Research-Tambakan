@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Research Tambakan</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+<div id="loginScreen">
+  <div id="loginBox">
+    <h3>Student Login</h3>
+    <input id="username" placeholder="Enter your name" style="width:100%;padding:0.5rem;" />
+    <br><br>
+    <button onclick="login()" style="width:100%;padding:0.6rem;">Enter</button>
+    <p style="font-size:0.8rem;color:#666;">Offline – no internet required</p>
+  </div>
+</div>
+
+<div id="app" style="display:none;">
+<header>
+  <h1>E-Research Tambakan</h1>
+  <p>Offline Research Index for Junior High School Students</p>
+</header>
+
+<main>
+  <div class="controls">
+    <input id="search" placeholder="Search by title or keyword" oninput="renderPapers()" />
+  </div>
+
+  <h2>Select a Research Field</h2>
+  <div class="fields">
+    <button class="field-btn" onclick="selectField('MCS')">MCS</button>
+    <button class="field-btn" onclick="selectField('RIM')">RIM</button>
+    <button class="field-btn" onclick="selectField('LS')">LS</button>
+    <button class="field-btn" onclick="selectField('PS')">PS</button>
+    <button class="field-btn" onclick="selectField('STEMIE')">STEMIE</button>
+  </div>
+
+  <div id="paperContainer"></div>
+</main>
+
+<footer>
+  <p>© 2026 E-Research Tambakan | Educational Brainstorming Only</p>
+</footer>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">X</span>
+    <h3 id="modalTitle"></h3>
+    <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+    <p><strong>Year:</strong> <span id="modalYear"></span></p>
+    <p><strong>Abstract:</strong></p>
+    <p id="modalAbstract"></p>
+    <p><strong>Keywords:</strong> <span id="modalKeywords"></span></p>
+    <p style="font-size:0.8rem;color:#666;">Full paper not included (copyright protected)</p>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('Service Worker Registered'));
+  }
+</script>
+</body>
+</html>
