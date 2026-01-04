@@ -1,99 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Research Tambakan</title>
+
+  <!-- Simple modern styling -->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f2f5f9;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1f4fd8, #3f6df2);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin-top: 0.5rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    .search-box {
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .field-btn {
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .field-btn:hover {
+      background: #e9efff;
+      transform: translateY(-3px);
+    }
+
+    .field-btn.active {
+      background: #1f4fd8;
+      color: white;
+    }
+
+    .papers {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .paper-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .paper-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .paper-card h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1.1rem;
+    }
+
+    .paper-card small {
+      color: #666;
+    }
+
+    .tags {
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #1f4fd8;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      margin-right: 4px;
+      margin-top: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .modal-content {
+      background: white;
+      max-width: 650px;
+      width: 100%;
+      border-radius: 14px;
+      padding: 1.5rem;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .close-btn {
+      float: right;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .notice {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>E-Research Tambakan</h1>
+  <p>Offline Research Index for Junior High School Students</p>
+</header>
+
+<main>
+  <div class="search-box">
+    <input id="searchInput" placeholder="Search research title or keyword..." />
+  </div>
+
+  <div class="fields">
+    <button class="field-btn" data-field="MCS">MCS</button>
+    <button class="field-btn" data-field="RIM">RIM</button>
+    <button class="field-btn" data-field="LS">LS</button>
+    <button class="field-btn" data-field="PS">PS</button>
+    <button class="field-btn" data-field="STEMIE">STEMIE</button>
+  </div>
+
+  <div id="papers" class="papers"></div>
+</main>
+
+<footer>
+  © 2026 E-Research Tambakan • Educational Use Only
+</footer>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">✖</span>
+    <h2 id="modalTitle"></h2>
+    <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+    <p><strong>Year:</strong> <span id="modalYear"></span></p>
+    <p><strong>Abstract:</strong></p>
+    <p id="modalAbstract"></p>
+    <p><strong>Keywords:</strong></p>
+    <div id="modalKeywords"></div>
+    <p class="notice">Full paper not included (copyright protected).</p>
+  </div>
+</div>
+
 <script>
+  let allPapers = {};
   let currentField = null;
 
-  // ✅ DEFINE FIRST
-  function generatePapers(field) {
-    const list = [];
-    for (let i = 1; i <= 10; i++) {
-      list.push({
-        title: field + ' Research Paper ' + i,
-        author: 'Various Authors',
-        year: 2018 + (i % 6),
-        abstract:
-          'This study explores sample topics under ' +
-          field +
-          ' to help junior high school students brainstorm research ideas.',
-        keywords: ['qualitative', 'student', field.toLowerCase()]
-      });
-    }
-    return list;
-  }
+  // Load papers.json
+  fetch("papers.json")
+    .then(res => res.json())
+    .then(data => {
+      allPapers = data;
+    })
+    .catch(() => {
+      alert("Failed to load papers.json");
+    });
 
-  // ✅ THEN USE IT
-  const papers = {
-    MCS: generatePapers('MCS'),
-    RIM: generatePapers('RIM'),
-    LS: generatePapers('LS'),
-    PS: generatePapers('PS'),
-    STEMIE: generatePapers('STEMIE')
-  };
+  const fieldButtons = document.querySelectorAll(".field-btn");
+  const papersContainer = document.getElementById("papers");
+  const searchInput = document.getElementById("searchInput");
 
-  function selectField(field) {
-    currentField = field;
-    renderPapers();
-  }
+  fieldButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      fieldButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentField = btn.dataset.field;
+      renderPapers();
+    });
+  });
+
+  searchInput.addEventListener("input", renderPapers);
 
   function renderPapers() {
-    const container = document.getElementById('paperContainer');
-    container.innerHTML = '';
+    papersContainer.innerHTML = "";
 
-    if (!currentField || !papers[currentField]) {
-      container.innerHTML =
-        '<p style="color:#666;">Select a research field to view studies.</p>';
-      return;
-    }
+    if (!currentField || !allPapers[currentField]) return;
 
-    const query = document.getElementById('search').value.toLowerCase();
+    const query = searchInput.value.toLowerCase();
 
-    papers[currentField]
-      .filter(
-        p =>
-          p.title.toLowerCase().includes(query) ||
-          p.keywords.join(' ').toLowerCase().includes(query)
+    allPapers[currentField]
+      .filter(p =>
+        p.title.toLowerCase().includes(query) ||
+        p.keywords.join(" ").toLowerCase().includes(query)
       )
       .forEach(paper => {
-        const div = document.createElement('div');
-        div.className = 'paper-card';
-        div.innerHTML = `
-          <strong>${paper.title}</strong><br>
-          <small>${paper.author} (${paper.year})</small><br>
-          ${paper.keywords
-            .map(k => `<span class="tag">${k}</span>`)
-            .join('')}
+        const card = document.createElement("div");
+        card.className = "paper-card";
+
+        card.innerHTML = `
+          <h3>${paper.title}</h3>
+          <small>${paper.author} • ${paper.year}</small>
+          <div class="tags">
+            ${paper.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
+          </div>
         `;
-        div.onclick = () => openModal(paper);
-        container.appendChild(div);
+
+        card.onclick = () => openModal(paper);
+        papersContainer.appendChild(card);
       });
   }
 
   function openModal(p) {
-    document.getElementById('modalTitle').innerText = p.title;
-    document.getElementById('modalAuthor').innerText = p.author;
-    document.getElementById('modalYear').innerText = p.year;
-    document.getElementById('modalAbstract').innerText = p.abstract;
-    document.getElementById('modalKeywords').innerText =
-      p.keywords.join(', ');
-    document.getElementById('modal').style.display = 'flex';
+    document.getElementById("modalTitle").textContent = p.title;
+    document.getElementById("modalAuthor").textContent = p.author;
+    document.getElementById("modalYear").textContent = p.year;
+    document.getElementById("modalAbstract").textContent = p.abstract;
+    document.getElementById("modalKeywords").innerHTML =
+      p.keywords.map(k => `<span class="tag">${k}</span>`).join("");
+    document.getElementById("modal").style.display = "flex";
   }
 
   function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-  }
-
-  function login() {
-    const name = document.getElementById('username').value;
-    if (!name) return alert('Please enter your name');
-    localStorage.setItem('studentName', name);
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-
-    // ✅ auto-load first field
-    selectField('MCS');
-  }
-
-  if (localStorage.getItem('studentName')) {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    selectField('MCS'); // ✅ auto-load
+    document.getElementById("modal").style.display = "none";
   }
 </script>
+
+</body>
+</html>
