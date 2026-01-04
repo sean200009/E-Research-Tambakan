@@ -5,18 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
   <link rel="stylesheet" href="style.css.txt">
+  <script src="https://kit.fontawesome.com/a81368914c.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
     <h1>Admin Panel</h1>
-    <a href="index.html" class="back-btn">Back to Repository</a>
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
   </header>
 
-  <section id="admin-section">
-    <h2>Manage Studies</h2>
-    <div id="admin-stats"></div>
-    <div id="admin-papers-container"></div>
-  </section>
+  <main>
+    <section id="admin-section" class="card-section">
+      <div id="admin-stats" class="stats"></div>
+      <div id="admin-papers-container" class="grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 School Study Repository - Admin</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
