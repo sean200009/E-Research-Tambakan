@@ -1,12 +1,9 @@
-let studentName = '';
-let papers = {};
-const categories = ["MCS","RIM","LS","PS","STEMIE"];
+let studentName='';
+let papers={};
+const categories=["MCS","RIM","LS","PS","STEMIE"];
 
-// Load papers JSON
-fetch('papers.json')
-  .then(res=>res.json())
-  .then(data=>papers=data)
-  .then(()=>renderStats());
+// Load papers
+fetch('papers.json').then(res=>res.json()).then(data=>papers=data);
 
 // Login
 document.getElementById('loginBtn')?.addEventListener('click',()=>{
@@ -42,37 +39,14 @@ function renderPapers(category=null,dataset=null){
     data[cat].forEach((p,i)=>{
       const div=document.createElement('div'); div.className='paper-card';
       div.innerHTML=`<h4>${p.title}</h4>
-        <p><strong>Author:</strong> ${p.author}</p>
-        <p><strong>Year:</strong> ${p.year}</p>
-        <p>${p.abstract}</p>
-        <p><strong>Keywords:</strong> ${p.keywords.join(', ')}</p>`;
-      if(container.id==='admin-papers-container'){
-        const btn=document.createElement('button'); btn.textContent='Delete'; btn.className='delete-btn';
-        btn.addEventListener('click',()=>deletePaper(cat,i));
-        div.appendChild(btn);
-      }
+      <p><strong>Author:</strong> ${p.author}</p>
+      <p><strong>Year:</strong> ${p.year}</p>
+      <p>${p.abstract}</p>
+      <p><strong>Keywords:</strong> ${p.keywords.join(', ')}</p>`;
       container.appendChild(div);
     });
   }
 }
 
-// Delete Paper
-function deletePaper(cat,index){
-  if(confirm('Are you sure you want to delete this paper?')){
-    papers[cat].splice(index,1);
-    renderPapers(null,papers);
-    renderStats();
-  }
-}
-
-// Render Stats
-function renderStats(){
-  const statsContainer=document.getElementById('stats')||document.getElementById('admin-stats');
-  let html='<h3>Statistics:</h3><ul>';
-  categories.forEach(cat=>html+=`<li>${cat}: ${papers[cat].length} papers</li>`);
-  html+='</ul>'; statsContainer.innerHTML=html;
-}
-
 // Dark Mode
-const toggle=document.getElementById('darkModeToggle');
-if(toggle) toggle.addEventListener('change',()=>document.body.classList.toggle('dark-mode',toggle.checked));
+document.getElementById('darkModeToggle')?.addEventListener('change',()=>document.body.classList.toggle('dark-mode'));
