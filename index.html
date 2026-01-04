@@ -11,7 +11,7 @@
 </head>
 <body>
   <header>
-    <!-- Animated SVG Icons & Blobs -->
+    <!-- Animated SVG Blobs -->
     <div class="header-bg">
       <svg class="blob blob1" viewBox="0 0 200 200">
         <path fill="#9013fe" d="M42.4,-72.1C55.2,-62.3,63.8,-50.1,67.1,-36.4C70.5,-22.7,68.6,-7.5,64,6.7C59.4,20.9,52.2,33.6,43.6,44.1C35,54.6,25,62.8,13.1,68.6C1.2,74.4,-12.5,77.7,-26.8,76.2C-41.1,74.7,-55.9,68.4,-61.8,57.2C-67.7,46,-64.7,30,-64,14.3C-63.2,-1.5,-64.8,-16.6,-60.8,-29.2C-56.8,-41.9,-47.2,-52,-35.3,-60.7C-23.5,-69.5,-11.8,-76.9,2.8,-79.2C17.5,-81.6,35,-78.1,42.4,-72.1Z" transform="translate(100 100)" />
@@ -25,12 +25,13 @@
       <label class="toggle-dark-mode">
         <input type="checkbox" id="darkModeToggle">
         <i class="fas fa-moon"></i>
+        <span id="modeIndicator">Light Mode</span>
       </label>
     </div>
   </header>
 
   <main>
-    <!-- Login Section -->
+    <!-- Login -->
     <section id="login-section" class="card-section">
       <h2>Student Login</h2>
       <input type="text" id="studentName" placeholder="Enter your name">
@@ -42,7 +43,6 @@
       <div class="controls">
         <input type="text" id="searchInput" placeholder="Search studies...">
       </div>
-
       <div id="categories" class="categories">
         <button class="category-btn" data-category="MCS"><i class="fas fa-robot"></i> MCS</button>
         <button class="category-btn" data-category="RIM"><i class="fas fa-microchip"></i> RIM</button>
@@ -50,10 +50,21 @@
         <button class="category-btn" data-category="PS"><i class="fas fa-brain"></i> PS</button>
         <button class="category-btn" data-category="STEMIE"><i class="fas fa-project-diagram"></i> STEMIE</button>
       </div>
-
       <div id="papers-container" class="grid"></div>
     </section>
   </main>
+
+  <!-- Modal for full study -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+      <p><strong>Year:</strong> <span id="modalYear"></span></p>
+      <p id="modalAbstract"></p>
+      <p><strong>Keywords:</strong> <span id="modalKeywords"></span></p>
+    </div>
+  </div>
 
   <footer>
     <p>&copy; 2026 School Study Repository</p>
