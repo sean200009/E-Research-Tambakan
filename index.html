@@ -6,38 +6,49 @@
   <title>School Study Repository</title>
   <link rel="stylesheet" href="style.css.txt">
   <link rel="manifest" href="manifest.json">
+  <script src="https://kit.fontawesome.com/a81368914c.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
     <h1>School Study Repository</h1>
-    <div class="toggle-dark-mode">
-      <label>
-        Dark Mode
+    <div class="header-controls">
+      <label class="toggle-dark-mode">
         <input type="checkbox" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
       </label>
     </div>
   </header>
 
-  <section id="login-section">
-    <h2>Student Login</h2>
-    <input type="text" id="studentName" placeholder="Enter your name">
-    <button id="loginBtn">Login</button>
-  </section>
+  <main>
+    <!-- Login Section -->
+    <section id="login-section" class="card-section">
+      <h2>Student Login</h2>
+      <input type="text" id="studentName" placeholder="Enter your name">
+      <button id="loginBtn">Login <i class="fas fa-sign-in-alt"></i></button>
+    </section>
 
-  <section id="main-section" class="hidden">
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search studies...">
-    </div>
-    <div id="stats"></div>
-    <div id="categories">
-      <button class="category-btn" data-category="MCS">MCS</button>
-      <button class="category-btn" data-category="RIM">RIM</button>
-      <button class="category-btn" data-category="LS">LS</button>
-      <button class="category-btn" data-category="PS">PS</button>
-      <button class="category-btn" data-category="STEMIE">STEMIE</button>
-    </div>
-    <div id="papers-container"></div>
-  </section>
+    <!-- Main Content -->
+    <section id="main-section" class="hidden">
+      <div class="controls">
+        <input type="text" id="searchInput" placeholder="Search studies...">
+        <div id="stats" class="stats"></div>
+      </div>
+
+      <div id="categories" class="categories">
+        <button class="category-btn" data-category="MCS">MCS</button>
+        <button class="category-btn" data-category="RIM">RIM</button>
+        <button class="category-btn" data-category="LS">LS</button>
+        <button class="category-btn" data-category="PS">PS</button>
+        <button class="category-btn" data-category="STEMIE">STEMIE</button>
+      </div>
+
+      <div id="papers-container" class="grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 School Study Repository</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
