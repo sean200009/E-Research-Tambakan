@@ -1,166 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-Research Tambakan</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Research Tambakan</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f6f8;
-      color: #333;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    color: #333;
+  }
 
-    header {
-      background: #1f4fd8;
-      color: #fff;
-      padding: 1.5rem;
-      text-align: center;
-    }
+  header {
+    background: #1f4fd8;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+  }
 
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 1.5rem;
-    }
+  main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 1.5rem;
+  }
 
-    h2 {
-      margin-bottom: 1rem;
-    }
+  h2 {
+    margin-top: 0;
+  }
 
-    .search-box input {
-      width: 100%;
-      padding: 0.7rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-bottom: 1.5rem;
-    }
+  /* LOGIN */
+  #loginScreen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .fields {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
+  #loginBox {
+    background: white;
+    padding: 2rem;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+  }
 
-    .field-btn {
-      padding: 0.9rem;
-      border: none;
-      border-radius: 8px;
-      background: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
+  #loginBox input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
 
-    .field-btn.active {
-      background: #1f4fd8;
-      color: #fff;
-    }
+  #loginBox button {
+    width: 100%;
+    padding: 0.6rem;
+    background: #1f4fd8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
 
-    .paper-card {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      cursor: pointer;
-    }
+  /* CONTROLS */
+  .controls input {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 1.5rem;
+  }
 
-    .paper-card h3 {
-      margin: 0 0 0.3rem;
-      font-size: 1.05rem;
-    }
+  /* FIELDS */
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
 
-    .paper-card small {
-      color: #666;
-    }
+  .field-btn {
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    background: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
 
-    .tag {
-      display: inline-block;
-      background: #e0e7ff;
-      color: #1f4fd8;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      margin-right: 4px;
-      margin-top: 6px;
-    }
+  .field-btn:hover {
+    background: #eaf0ff;
+  }
 
-    .no-results {
-      text-align: center;
-      color: #777;
-      margin-top: 2rem;
-    }
+  /* PAPERS */
+  .paper-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    cursor: pointer;
+  }
 
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.85rem;
-      background: #eaeaea;
-    }
+  .paper-card small {
+    color: #666;
+  }
 
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-    }
+  .tag {
+    display: inline-block;
+    background: #dbe4ff;
+    color: #1f4fd8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin-right: 4px;
+  }
 
-    .modal-content {
-      background: #fff;
-      width: 90%;
-      max-width: 600px;
-      padding: 1.5rem;
-      border-radius: 10px;
-    }
+  #noResults {
+    color: #777;
+    text-align: center;
+    margin-top: 2rem;
+  }
 
-    .close-btn {
-      float: right;
-      cursor: pointer;
-      font-weight: bold;
-    }
-  </style>
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background: #eaeaea;
+    font-size: 0.85rem;
+  }
+
+  /* MODAL */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+  }
+
+  .close-btn {
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div id="loginBox">
+    <h3>Student Login</h3>
+    <input id="studentName" placeholder="Enter your name">
+    <button onclick="loginStudent()">Enter</button>
+    <p style="font-size:0.8rem;color:#666;margin-top:1rem;">
+      Offline – no internet required
+    </p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none;">
+
 <header>
   <h1>E-Research Tambakan</h1>
-  <p>Offline Research Index for Junior High School Students</p>
+  <p>Project-led by2025-2026 Junior High School Research Club</p>
 </header>
 
 <main>
-  <div class="search-box">
-    <input id="searchInput" placeholder="Search by title or keyword" />
+
+  <div class="controls">
+    <input id="search" placeholder="Search by title or keyword" oninput="renderPapers()">
   </div>
 
   <h2>Select a Research Field</h2>
-
   <div class="fields">
-    <button class="field-btn" data-field="MCS">MCS</button>
-    <button class="field-btn" data-field="RIM">RIM</button>
-    <button class="field-btn" data-field="LS">LS</button>
-    <button class="field-btn" data-field="PS">PS</button>
-    <button class="field-btn" data-field="STEMIE">STEMIE</button>
+    <button class="field-btn" onclick="selectField('MCS')">MCS</button>
+    <button class="field-btn" onclick="selectField('RIM')">RIM</button>
+    <button class="field-btn" onclick="selectField('LS')">LS</button>
+    <button class="field-btn" onclick="selectField('PS')">PS</button>
+    <button class="field-btn" onclick="selectField('STEMIE')">STEMIE</button>
   </div>
 
   <div id="paperContainer"></div>
-  <div id="noResults" class="no-results" style="display:none;">
-    No resource found
-  </div>
+  <div id="noResults" style="display:none;">No resource found</div>
+
 </main>
 
 <footer>
-  © 2026 E-Research Tambakan | Educational Use Only
+  © 2026 E-Research Tambakan | Junior High School Research Club
 </footer>
 
-<!-- Modal -->
+</div>
+
+<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">X</span>
@@ -169,48 +217,48 @@
     <p><strong>Year:</strong> <span id="modalYear"></span></p>
     <p><strong>Abstract:</strong></p>
     <p id="modalAbstract"></p>
-    <p><strong>Keywords:</strong></p>
-    <div id="modalKeywords"></div>
-    <p style="font-size:0.8rem;color:#666;">
-      Full paper not included (copyright protected)
-    </p>
+    <p><strong>Keywords:</strong> <span id="modalKeywords"></span></p>
   </div>
 </div>
 
 <script>
-  let papers = {};
+  const papers = {
+    MCS: createPapers("MCS"),
+    RIM: createPapers("RIM"),
+    LS: createPapers("LS"),
+    PS: createPapers("PS"),
+    STEMIE: createPapers("STEMIE")
+  };
+
   let currentField = null;
 
-  fetch("papers.json")
-    .then(res => res.json())
-    .then(data => papers = data);
+  function createPapers(field) {
+    return [{
+      title: field + " Sample Research Study",
+      author: "Various Authors",
+      year: 2022,
+      abstract: "This study provides an example research topic under " + field + " for student reference.",
+      keywords: ["student", "research", field]
+    }];
+  }
 
-  const fieldButtons = document.querySelectorAll(".field-btn");
-  const container = document.getElementById("paperContainer");
-  const noResults = document.getElementById("noResults");
-  const searchInput = document.getElementById("searchInput");
-
-  fieldButtons.forEach(btn => {
-    btn.onclick = () => {
-      fieldButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentField = btn.dataset.field;
-      renderPapers();
-    };
-  });
-
-  searchInput.oninput = renderPapers;
+  function selectField(field) {
+    currentField = field;
+    renderPapers();
+  }
 
   function renderPapers() {
+    const container = document.getElementById("paperContainer");
+    const noResults = document.getElementById("noResults");
     container.innerHTML = "";
     noResults.style.display = "none";
 
-    if (!currentField || !papers[currentField]) return;
+    if (!currentField) return;
 
-    const query = searchInput.value.toLowerCase();
+    const query = document.getElementById("search").value.toLowerCase();
     const results = papers[currentField].filter(p =>
       p.title.toLowerCase().includes(query) ||
-      p.keywords.join(" ").toLowerCase().includes(query)
+      p.keywords.join(" ").includes(query)
     );
 
     if (results.length === 0) {
@@ -222,7 +270,7 @@
       const div = document.createElement("div");
       div.className = "paper-card";
       div.innerHTML = `
-        <h3>${p.title}</h3>
+        <strong>${p.title}</strong><br>
         <small>${p.author} (${p.year})</small><br>
         ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
       `;
@@ -232,17 +280,32 @@
   }
 
   function openModal(p) {
-    document.getElementById("modalTitle").textContent = p.title;
-    document.getElementById("modalAuthor").textContent = p.author;
-    document.getElementById("modalYear").textContent = p.year;
-    document.getElementById("modalAbstract").textContent = p.abstract;
-    document.getElementById("modalKeywords").innerHTML =
-      p.keywords.map(k => `<span class="tag">${k}</span>`).join("");
-    document.getElementById("modal").style.display = "flex";
+    modalTitle.innerText = p.title;
+    modalAuthor.innerText = p.author;
+    modalYear.innerText = p.year;
+    modalAbstract.innerText = p.abstract;
+    modalKeywords.innerText = p.keywords.join(", ");
+    modal.style.display = "flex";
   }
 
   function closeModal() {
-    document.getElementById("modal").style.display = "none";
+    modal.style.display = "none";
+  }
+
+  function loginStudent() {
+    const name = studentName.value.trim();
+    if (!name) return alert("Please enter your name");
+    localStorage.setItem("studentName", name);
+    showApp();
+  }
+
+  function showApp() {
+    loginScreen.style.display = "none";
+    app.style.display = "block";
+  }
+
+  if (localStorage.getItem("studentName")) {
+    showApp();
   }
 </script>
 
