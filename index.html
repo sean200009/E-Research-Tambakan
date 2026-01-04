@@ -4,17 +4,135 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Research Tambakan (Offline)</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background: #1f4fd8;
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+    h2, h3 {
+      margin-top: 0;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .controls input {
+      flex: 1;
+      padding: 0.7rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .field-btn {
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: 0.2s;
+    }
+    .field-btn:hover {
+      background: #eaf0ff;
+      transform: translateY(-2px);
+    }
+    .papers {
+      display: none;
+    }
+    .papers.active {
+      display: block;
+    }
+    .paper-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      cursor: pointer;
+    }
+    .paper-card small {
+      color: #666;
+    }
+    .tag {
+      display: inline-block;
+      background: #dbe4ff;
+      color: #1f4fd8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      margin-right: 4px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eaeaea;
+      font-size: 0.85rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      max-width: 600px;
+      width: 90%;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .close-btn {
+      float: right;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #loginScreen {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #loginBox {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
 
 <div id="loginScreen">
   <div id="loginBox">
     <h3>Student Login</h3>
-    <input id="username" placeholder="Enter your name" />
+    <input id="username" placeholder="Enter your name" style="width:100%;padding:0.5rem;" />
     <br><br>
-    <button onclick="login()">Enter</button>
+    <button onclick="login()" style="width:100%;padding:0.6rem;">Enter</button>
     <p style="font-size:0.8rem;color:#666;">Offline – no internet required</p>
   </div>
 </div>
@@ -27,7 +145,7 @@
 
 <main>
   <div class="controls">
-    <input id="search" placeholder="Search by title or keyword" />
+    <input id="search" placeholder="Search by title or keyword" oninput="renderPapers()" />
   </div>
 
   <h2>Select a Research Field</h2>
@@ -47,7 +165,6 @@
 </footer>
 </div>
 
-<!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">X</span>
@@ -61,6 +178,81 @@
   </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+  const papers = {
+    MCS: generatePapers('MCS'),
+    RIM: generatePapers('RIM'),
+    LS: generatePapers('LS'),
+    PS: generatePapers('PS'),
+    STEMIE: generatePapers('STEMIE')
+  };
+
+  let currentField = null;
+
+  function generatePapers(field) {
+    const list = [];
+    for (let i = 1; i <= 10; i++) {
+      list.push({
+        title: field + ' Research Paper ' + i,
+        author: 'Various Authors',
+        year: 2018 + (i % 6),
+        abstract: 'This study explores sample topics under ' + field + ' to help junior high school students brainstorm research ideas.',
+        keywords: ['qualitative', 'student', field]
+      });
+    }
+    return list;
+  }
+
+  function selectField(field) {
+    currentField = field;
+    renderPapers();
+  }
+
+  function renderPapers() {
+    const container = document.getElementById('paperContainer');
+    container.innerHTML = '';
+    if (!currentField) return;
+
+    const query = document.getElementById('search').value.toLowerCase();
+
+    papers[currentField]
+      .filter(p => p.title.toLowerCase().includes(query) || p.keywords.join().includes(query))
+      .forEach(paper => {
+        const div = document.createElement('div');
+        div.className = 'paper-card';
+        div.innerHTML = `<strong>${paper.title}</strong><br>
+          <small>${paper.author} (${paper.year})</small><br>
+          ${paper.keywords.map(k => `<span class='tag'>${k}</span>`).join('')}`;
+        div.onclick = () => openModal(paper);
+        container.appendChild(div);
+      });
+  }
+
+  function openModal(p) {
+    document.getElementById('modalTitle').innerText = p.title;
+    document.getElementById('modalAuthor').innerText = p.author;
+    document.getElementById('modalYear').innerText = p.year;
+    document.getElementById('modalAbstract').innerText = p.abstract;
+    document.getElementById('modalKeywords').innerText = p.keywords.join(', ');
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+
+  function login() {
+    const name = document.getElementById('username').value;
+    if (!name) return alert('Please enter your name');
+    localStorage.setItem('studentName', name);
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+  }
+
+  if (localStorage.getItem('studentName')) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+  }
+</script>
 </body>
 </html>
