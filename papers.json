@@ -1,16 +1,47 @@
 {
-  "MCS": [],
+  "MCS": [
+    {
+      "title": "Mathematics Cognitive Strategies in Junior High",
+      "author": "Smith, et al.",
+      "year": 2025,
+      "abstract": "This study explores cognitive strategies used by junior high school students to solve mathematics problems, aiming to enhance understanding and problem-solving efficiency.",
+      "keywords": ["mathematics", "cognitive strategies", "junior high", "MCS"]
+    }
+  ],
   "RIM": [
     {
-      "title": "Arduino-based Traffic Light System with Vehicle Classification: A Self-Detecting Peak Traffic Control",
+      "title": "Arduino-Based Smart Traffic Light System for EV Prioritization",
       "author": "Briol, et al.",
       "year": 2026,
       "abstract": "Traffic congestion has become a wide issue in urban areas, affecting the efficiency of transportation, the safety of roads, and the city’s sustainability. Traditional traffic light systems, operated on fixed timing, fail to adapt to real-time traffic conditions. This study proposes a cost-effective traffic light system utilizing Arduino Mega 2560 as the primary microcontroller, integrated with an ESP32 camera and an IR sensor. The system is designed to change traffic signal based on real-time traffic volume and EVI. Conducted at a prototype simulation of road traffic in the Masbate City, this study aims to enhance traffic management by implementing Arduino-based processing. The system integrates the real-time changing of signal lights to reduce congestion, improve overall traffic flow, and prioritize EV. The research findings indicate that the system accurately responds to traffic volumes, precisely identifies EV, and effectively prioritizes EV. The study highlights the potential of smart technologies in modernizing traffic control systems, offering a scalable and cost-effective solution for small-scale urban intersections. Future research should explore further enhancements, such the integration of additional sensor technologies for more precise vehicle detection, integration of RFID systems, and the conduct of field testing.",
       "keywords": ["smart technologies", "traffic congestion", "Arduino Mega 2560", "ESP32 Camera", "vehicle classification"]
     }
   ],
-  "LS": [],
-  "PS": [],
-  "STEMIE": []
+  "LS": [
+    {
+      "title": "Language Skills Development in Junior High",
+      "author": "Johnson, et al.",
+      "year": 2024,
+      "abstract": "This research examines methods to improve reading comprehension and writing skills among junior high students, focusing on interactive and collaborative learning strategies.",
+      "keywords": ["language skills", "reading", "writing", "junior high", "LS"]
+    }
+  ],
+  "PS": [
+    {
+      "title": "Psychology of Adolescent Motivation",
+      "author": "Lee, et al.",
+      "year": 2023,
+      "abstract": "This study explores the factors affecting motivation in junior high school students, including peer influence, teacher support, and self-efficacy, aiming to design better engagement strategies.",
+      "keywords": ["psychology", "motivation", "adolescents", "junior high", "PS"]
+    }
+  ],
+  "STEMIE": [
+    {
+      "title": "STEM Integration for Environmental Awareness",
+      "author": "Garcia, et al.",
+      "year": 2025,
+      "abstract": "This study investigates the impact of integrating STEM activities into environmental education projects, helping junior high students understand sustainability and practical science applications.",
+      "keywords": ["STEM", "environment", "education", "junior high", "STEMIE"]
+    }
+  ]
 }
-
