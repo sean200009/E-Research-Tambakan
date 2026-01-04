@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Research Tambakan – Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      color: #333;
+    }
+
+    header {
+      background: #1f4fd8;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    button {
+      padding: 0.7rem 1.2rem;
+      background: #1f4fd8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    pre {
+      background: #111;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>E-Research Tambakan</h1>
+  <p>Admin Upload Page</p>
+</header>
+
+<main>
+
+  <!-- LOGIN -->
+  <div class="card" id="loginCard">
+    <h2>Admin Login</h2>
+    <input id="adminUser" placeholder="Username">
+    <input id="adminPass" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="card hidden" id="adminPanel">
+    <h2>Add New Research Paper</h2>
+
+    <select id="field">
+      <option value="MCS">MCS</option>
+      <option value="RIM">RIM</option>
+      <option value="LS">LS</option>
+      <option value="PS">PS</option>
+      <option value="STEMIE">STEMIE</option>
+    </select>
+
+    <input id="title" placeholder="Research Title">
+    <input id="author" placeholder="Author(s)">
+    <input id="year" placeholder="Year">
+    <textarea id="abstract" placeholder="Abstract"></textarea>
+    <input id="keywords" placeholder="Keywords (comma separated)">
+
+    <button onclick="addPaper()">Add Paper</button>
+  </div>
+
+  <!-- EXPORT -->
+  <div class="card hidden" id="exportCard">
+    <h2>Updated papers.json</h2>
+    <p>Copy everything below and paste it into <b>papers.json</b> on GitHub.</p>
+    <pre id="output"></pre>
+  </div>
+
+</main>
+
+<script>
+  const ADMIN_USER = "admin";
+  const ADMIN_PASS = "1234";
+
+  let papers = {
+    MCS: [],
+    RIM: [],
+    LS: [],
+    PS: [],
+    STEMIE: []
+  };
+
+  fetch("papers.json")
+    .then(res => res.json())
+    .then(data => papers = data);
+
+  function login() {
+    const u = document.getElementById("adminUser").value;
+    const p = document.getElementById("adminPass").value;
+
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      document.getElementById("loginCard").classList.add("hidden");
+      document.getElementById("adminPanel").classList.remove("hidden");
+      document.getElementById("exportCard").classList.remove("hidden");
+      updateOutput();
+    } else {
+      alert("Invalid admin credentials");
+    }
+  }
+
+  function addPaper() {
+    const field = document.getElementById("field").value;
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const year = document.getElementById("year").value;
+    const abstract = document.getElementById("abstract").value;
+    const keywords = document.getElementById("keywords").value
+      .split(",")
+      .map(k => k.trim());
+
+    if (!title || !author || !year || !abstract) {
+      alert("Please complete all fields");
+      return;
+    }
+
+    papers[field].push({
+      title,
+      author,
+      year,
+      abstract,
+      keywords
+    });
+
+    document.getElementById("title").value = "";
+    document.getElementById("author").value = "";
+    document.getElementById("year").value = "";
+    document.getElementById("abstract").value = "";
+    document.getElementById("keywords").value = "";
+
+    updateOutput();
+    alert("Paper added! Scroll down to copy updated JSON.");
+  }
+
+  function updateOutput() {
+    document.getElementById("output").textContent =
+      JSON.stringify(papers, null, 2);
+  }
+</script>
+
+</body>
+</html>
