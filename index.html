@@ -5,70 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Research Tambakan</title>
 
-  <!-- Simple modern styling -->
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
       background: #f2f5f9;
       color: #333;
+      font-size: 17px;
     }
 
     header {
       background: linear-gradient(135deg, #1f4fd8, #3f6df2);
       color: white;
-      padding: 2rem 1rem;
+      padding: 2.5rem 1rem;
       text-align: center;
     }
 
     header h1 {
       margin: 0;
-      font-size: 2rem;
+      font-size: 2.3rem;
     }
 
     header p {
-      margin-top: 0.5rem;
-      opacity: 0.9;
+      margin-top: 0.7rem;
+      font-size: 1.1rem;
+      opacity: 0.95;
     }
 
     main {
       max-width: 1100px;
       margin: auto;
-      padding: 1.5rem;
+      padding: 2rem 1.2rem;
     }
 
     .search-box {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
     }
 
     .search-box input {
       width: 100%;
-      padding: 0.8rem;
-      font-size: 1rem;
-      border-radius: 8px;
+      padding: 1rem;
+      font-size: 1.05rem;
+      border-radius: 10px;
       border: 1px solid #ccc;
     }
 
     .fields {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 1rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.2rem;
     }
 
     .field-btn {
-      padding: 1rem;
+      padding: 1.1rem;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       background: white;
+      font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s, background 0.2s;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      transition: 0.2s;
     }
 
     .field-btn:hover {
@@ -83,50 +83,53 @@
 
     .papers {
       display: grid;
-      gap: 1rem;
+      gap: 1.3rem;
     }
 
     .paper-card {
       background: white;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 1.3rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
       cursor: pointer;
-      transition: transform 0.15s;
-    }
-
-    .paper-card:hover {
-      transform: translateY(-2px);
     }
 
     .paper-card h3 {
-      margin: 0 0 0.3rem;
-      font-size: 1.1rem;
+      margin: 0 0 0.4rem;
+      font-size: 1.25rem;
     }
 
     .paper-card small {
-      color: #666;
+      color: #555;
+      font-size: 0.95rem;
     }
 
     .tags {
-      margin-top: 0.5rem;
+      margin-top: 0.6rem;
     }
 
     .tag {
       display: inline-block;
       background: #e0e7ff;
       color: #1f4fd8;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      margin-right: 4px;
-      margin-top: 4px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      margin-right: 6px;
+      margin-top: 6px;
+    }
+
+    .no-results {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #777;
+      margin-top: 2rem;
     }
 
     footer {
       text-align: center;
-      padding: 1rem;
-      font-size: 0.85rem;
+      padding: 1.2rem;
+      font-size: 0.9rem;
       color: #666;
     }
 
@@ -143,29 +146,34 @@
 
     .modal-content {
       background: white;
-      max-width: 650px;
+      max-width: 680px;
       width: 100%;
-      border-radius: 14px;
-      padding: 1.5rem;
+      border-radius: 18px;
+      padding: 1.8rem;
       max-height: 90vh;
       overflow-y: auto;
     }
 
     .modal-content h2 {
       margin-top: 0;
+      font-size: 1.5rem;
     }
 
     .close-btn {
       float: right;
       cursor: pointer;
+      font-size: 1.3rem;
       font-weight: bold;
-      font-size: 1.2rem;
+    }
+
+    .modal p {
+      line-height: 1.6;
     }
 
     .notice {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #666;
-      margin-top: 1rem;
+      margin-top: 1.2rem;
     }
   </style>
 </head>
@@ -174,12 +182,12 @@
 
 <header>
   <h1>E-Research Tambakan</h1>
-  <p>Offline Research Index for Junior High School Students</p>
+  <p>📚 Offline Research Index for Junior High School Students</p>
 </header>
 
 <main>
   <div class="search-box">
-    <input id="searchInput" placeholder="Search research title or keyword..." />
+    <input id="searchInput" placeholder="🔍 Search research title or keyword..." />
   </div>
 
   <div class="fields">
@@ -191,6 +199,9 @@
   </div>
 
   <div id="papers" class="papers"></div>
+  <div id="noResults" class="no-results" style="display:none;">
+    ❌ No resource found
+  </div>
 </main>
 
 <footer>
@@ -202,11 +213,11 @@
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">✖</span>
     <h2 id="modalTitle"></h2>
-    <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
-    <p><strong>Year:</strong> <span id="modalYear"></span></p>
-    <p><strong>Abstract:</strong></p>
+    <p>👤 <strong>Author:</strong> <span id="modalAuthor"></span></p>
+    <p>📅 <strong>Year:</strong> <span id="modalYear"></span></p>
+    <p>📄 <strong>Abstract:</strong></p>
     <p id="modalAbstract"></p>
-    <p><strong>Keywords:</strong></p>
+    <p>🔑 <strong>Keywords:</strong></p>
     <div id="modalKeywords"></div>
     <p class="notice">Full paper not included (copyright protected).</p>
   </div>
@@ -216,18 +227,13 @@
   let allPapers = {};
   let currentField = null;
 
-  // Load papers.json
   fetch("papers.json")
     .then(res => res.json())
-    .then(data => {
-      allPapers = data;
-    })
-    .catch(() => {
-      alert("Failed to load papers.json");
-    });
+    .then(data => allPapers = data);
 
   const fieldButtons = document.querySelectorAll(".field-btn");
   const papersContainer = document.getElementById("papers");
+  const noResults = document.getElementById("noResults");
   const searchInput = document.getElementById("searchInput");
 
   fieldButtons.forEach(btn => {
@@ -243,31 +249,34 @@
 
   function renderPapers() {
     papersContainer.innerHTML = "";
+    noResults.style.display = "none";
 
     if (!currentField || !allPapers[currentField]) return;
 
     const query = searchInput.value.toLowerCase();
+    const results = allPapers[currentField].filter(p =>
+      p.title.toLowerCase().includes(query) ||
+      p.keywords.join(" ").toLowerCase().includes(query)
+    );
 
-    allPapers[currentField]
-      .filter(p =>
-        p.title.toLowerCase().includes(query) ||
-        p.keywords.join(" ").toLowerCase().includes(query)
-      )
-      .forEach(paper => {
-        const card = document.createElement("div");
-        card.className = "paper-card";
+    if (results.length === 0) {
+      noResults.style.display = "block";
+      return;
+    }
 
-        card.innerHTML = `
-          <h3>${paper.title}</h3>
-          <small>${paper.author} • ${paper.year}</small>
-          <div class="tags">
-            ${paper.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
-          </div>
-        `;
-
-        card.onclick = () => openModal(paper);
-        papersContainer.appendChild(card);
-      });
+    results.forEach(paper => {
+      const card = document.createElement("div");
+      card.className = "paper-card";
+      card.innerHTML = `
+        <h3>${paper.title}</h3>
+        <small>👤 ${paper.author} • 📅 ${paper.year}</small>
+        <div class="tags">
+          ${paper.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
+        </div>
+      `;
+      card.onclick = () => openModal(paper);
+      papersContainer.appendChild(card);
+    });
   }
 
   function openModal(p) {
