@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Research Tambakan</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- Login Screen -->
 <div id="loginScreen">
   <div id="loginBox">
-    <h2>Welcome Student</h2>
+    <h3>Student Login</h3>
     <input id="username" placeholder="Enter your name" />
+    <br><br>
     <button onclick="login()">Enter</button>
     <p class="note">Offline – no internet required</p>
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- Main App -->
 <div id="app" style="display:none;">
-
   <header>
     <h1>E-Research Tambakan</h1>
     <p>Offline Research Index for Junior High School Students</p>
@@ -28,7 +29,7 @@
 
   <main>
     <div class="controls">
-      <input id="search" placeholder="Search by title or keyword" oninput="renderPapers()">
+      <input id="search" placeholder="Search by title or keyword" oninput="renderPapers()" />
     </div>
 
     <h2>Select a Research Field</h2>
@@ -48,7 +49,7 @@
   </footer>
 </div>
 
-<!-- MODAL -->
+<!-- Modal -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">X</span>
@@ -63,5 +64,6 @@
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
