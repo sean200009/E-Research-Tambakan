@@ -1,90 +1,194 @@
+/* General body styling with purple gradient background */
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f6f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(to bottom, #e1bee7, #8e2de2, #4a00e0); /* Purple gradient from light to dark */
+    color: #333;
+    min-height: 100vh;
+    line-height: 1.6;
 }
 
+/* Header styling */
 header {
-  background: #1f4fd8;
-  color: white;
-  padding: 1.5rem;
-  text-align: center;
+    text-align: center;
+    background: linear-gradient(to right, #6a1b9a, #4a148c); /* Darker purple gradient */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-main {
-  max-width: 1100px;
-  margin: auto;
-  padding: 1.5rem;
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.hidden { display: none; }
-
-input, select, button, textarea {
-  width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  box-sizing: border-box;
+header p {
+    margin: 10px 0 0;
+    font-size: 1.2em;
 }
 
-button {
-  background: #1f4fd8;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+/* Login section */
+#login-section {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-button.secondary {
-  background: #555;
+/* Repository section */
+#repository {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.box {
-  background: white;
-  padding: 2rem;
-  width: 320px;
-  margin: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin-top: 3rem;
-}
-
+/* Field buttons */
 .fields {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+    justify-content: center;
 }
 
 .field-btn {
-  padding: 1rem;
-  background: white;
-  border-radius: 10px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  cursor: pointer;
+    padding: 12px 20px;
+    background: linear-gradient(to right, #ba68c8, #9c27b0); /* Medium purple gradient */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.paper-card {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+.field-btn:hover {
+    background: linear-gradient(to right, #9c27b0, #7b1fa2); /* Darker on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.tag {
-  background: #dbe4ff;
-  color: #1f4fd8;
-  padding: 2px 6px;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  margin-right: 4px;
+/* Papers list */
+#papers-list {
+    margin-top: 20px;
 }
 
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #eaeaea;
-  font-size: 0.85rem;
+.paper {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #9c27b0; /* Purple accent */
+}
+
+.paper h4 {
+    margin-top: 0;
+    color: #4a148c;
+}
+
+.paper p {
+    margin: 8px 0;
+}
+
+/* Admin content */
+#admin-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Forms */
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #4a148c;
+}
+
+input, select, textarea, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid #ba68c8;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #9c27b0;
+    box-shadow: 0 0 5px rgba(156, 39, 176, 0.5);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button {
+    background: linear-gradient(to right, #ba68c8, #9c27b0);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background: linear-gradient(to right, #9c27b0, #7b1fa2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Links */
+a {
+    color: #4a148c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .fields {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .field-btn {
+        width: 80%;
+    }
+    
+    form {
+        width: 90%;
+    }
 }
