@@ -2,47 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - School Studies Repository</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css.txt">
+    <title>Admin - Manage Research</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <h1>Admin Panel</h1>
-        <p>Manage the studies repository.</p>
-    </header>
-    
-    <div id="admin-content">
-        <h2>Current Papers</h2>
-        <div id="admin-papers-list"></div>
-        
-        <h2>Add New Paper</h2>
+<body class="admin-page">
+    <div class="container">
+        <a href="index.html">← Back to Home</a>
+        <h2>Add New Research</h2>
         <form id="add-paper-form">
-            <label for="field">Field:</label>
-            <select id="field" required>
+            <input type="text" id="title" placeholder="Research Title" required>
+            <input type="text" id="author" placeholder="Authors (e.g., Garcia, et al.)" required>
+            <input type="number" id="year" placeholder="Year" required>
+            <select id="category">
                 <option value="MCS">MCS</option>
                 <option value="RIM">RIM</option>
                 <option value="LS">LS</option>
                 <option value="PS">PS</option>
                 <option value="STEMIE">STEMIE</option>
             </select>
-            <label for="title">Title:</label>
-            <input type="text" id="title" required>
-            <label for="author">Author:</label>
-            <input type="text" id="author" required>
-            <label for="year">Year:</label>
-            <input type="number" id="year" required>
-            <label for="abstract">Abstract:</label>
-            <textarea id="abstract" required></textarea>
-            <label for="keywords">Keywords (comma-separated):</label>
-            <input type="text" id="keywords" required>
-            <button type="submit">Add Paper</button>
+            <textarea id="abstract" placeholder="Abstract Summary" required></textarea>
+            <input type="text" id="keywords" placeholder="Keywords (comma separated)">
+            <button type="submit">Save to Repository</button>
         </form>
-        
-        <a href="index.html">Back to Repository</a>
+
+        <hr>
+        <h2>Manage Existing Papers</h2>
+        <div id="admin-list"></div>
     </div>
-    
     <script src="script.js"></script>
 </body>
 </html>
