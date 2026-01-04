@@ -1,11 +1,21 @@
 let papers = {};
 let currentField = null;
 
-// Load papers from JSON
-fetch('papers.json')
-  .then(res => res.json())
-  .then(data => papers = data)
-  .catch(err => console.error('Error loading papers:', err));
+// Function to load latest papers.json
+async function loadPapers() {
+  try {
+    // Force browser to fetch fresh copy using cache-busting query
+    const response = await fetch(`papers.json?t=${Date.now()}`);
+    papers = await response.json();
+    // Re-render papers if a field is already selected
+    if (currentField) renderPapers();
+  } catch (err) {
+    console.error("Failed to load papers.json", err);
+  }
+}
+
+// Call loadPapers at startup
+loadPapers();
 
 function selectField(field) {
   currentField = field;
@@ -53,7 +63,15 @@ function login() {
   document.getElementById('app').style.display = 'block';
 }
 
+// Auto-login if already stored
 if (localStorage.getItem('studentName')) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
+}
+
+// Register service worker for offline
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('Service Worker Registered'))
+    .catch(err => console.log('Service Worker Failed', err));
 }
