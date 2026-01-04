@@ -2,26 +2,27 @@ let studentName='';
 let papers={};
 const categories=["MCS","RIM","LS","PS","STEMIE"];
 
-// Load papers
+// Load papers from JSON
 fetch('papers.json').then(res=>res.json()).then(data=>papers=data);
 
 // Login
-document.getElementById('loginBtn')?.addEventListener('click',()=>{
+document.getElementById('loginBtn').addEventListener('click',()=>{
   const name=document.getElementById('studentName').value.trim();
   if(name){
     studentName=name;
     document.getElementById('login-section').classList.add('hidden');
     document.getElementById('main-section').classList.remove('hidden');
+    renderPapers();
   }
 });
 
-// Category buttons
+// Category filter
 document.querySelectorAll('.category-btn').forEach(btn=>{
   btn.addEventListener('click',()=>renderPapers(btn.dataset.category));
 });
 
 // Search
-document.getElementById('searchInput')?.addEventListener('input',e=>{
+document.getElementById('searchInput').addEventListener('input',e=>{
   const q=e.target.value.toLowerCase();
   const filtered={};
   categories.forEach(cat=>{
@@ -30,7 +31,7 @@ document.getElementById('searchInput')?.addEventListener('input',e=>{
   renderPapers(null,filtered);
 });
 
-// Render Papers with View Full Study
+// Render papers
 function renderPapers(category=null,dataset=null){
   const container=document.getElementById('papers-container');
   container.innerHTML='';
@@ -46,7 +47,6 @@ function renderPapers(category=null,dataset=null){
         <button class="view-btn">View Full Study</button>`;
       container.appendChild(div);
 
-      // View Full Study
       div.querySelector('.view-btn').addEventListener('click',()=>{
         document.getElementById('modalTitle').textContent=p.title;
         document.getElementById('modalAuthor').textContent=p.author;
@@ -59,15 +59,13 @@ function renderPapers(category=null,dataset=null){
   }
 }
 
-// Modal close
+// Modal
 const modal=document.getElementById('modal');
 const closeModal=document.getElementById('closeModal');
 closeModal.addEventListener('click',()=>modal.classList.add('hidden'));
-modal.addEventListener('click',e=>{
-  if(e.target===modal) modal.classList.add('hidden');
-});
+modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.add('hidden');});
 
-// Dark/Light Mode Indicator
+// Dark/Light mode
 const modeIndicator=document.getElementById('modeIndicator');
 const darkToggle=document.getElementById('darkModeToggle');
 darkToggle.addEventListener('change',()=>{
