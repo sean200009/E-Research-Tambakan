@@ -3,40 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School Study Repository</title>
+  <title>Admin Panel</title>
   <link rel="stylesheet" href="style.css.txt">
-  <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <header>
-    <h1>School Study Repository</h1>
-    <div class="toggle-dark-mode">
-      <label>
-        Dark Mode
-        <input type="checkbox" id="darkModeToggle">
-      </label>
-    </div>
+    <h1>Admin Panel</h1>
+    <a href="index.html" class="back-btn">Back to Repository</a>
   </header>
 
-  <section id="login-section">
-    <h2>Student Login</h2>
-    <input type="text" id="studentName" placeholder="Enter your name">
-    <button id="loginBtn">Login</button>
-  </section>
-
-  <section id="main-section" class="hidden">
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search studies...">
-    </div>
-    <div id="stats"></div>
-    <div id="categories">
-      <button class="category-btn" data-category="MCS">MCS</button>
-      <button class="category-btn" data-category="RIM">RIM</button>
-      <button class="category-btn" data-category="LS">LS</button>
-      <button class="category-btn" data-category="PS">PS</button>
-      <button class="category-btn" data-category="STEMIE">STEMIE</button>
-    </div>
-    <div id="papers-container"></div>
+  <section id="admin-section">
+    <h2>Manage Studies</h2>
+    <div id="admin-stats"></div>
+    <div id="admin-papers-container"></div>
   </section>
 
   <script src="script.js"></script>
