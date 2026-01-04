@@ -6,189 +6,126 @@
 <title>E-Research Tambakan</title>
 
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f8;
-    color: #333;
-  }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+}
 
-  header {
-    background: #1f4fd8;
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
-  }
+header {
+  background: #1f4fd8;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
 
-  main {
-    max-width: 1100px;
-    margin: auto;
-    padding: 1.5rem;
-  }
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1.5rem;
+}
 
-  h2 {
-    margin-top: 0;
-  }
+.hidden { display: none; }
 
-  /* LOGIN */
-  #loginScreen {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+input, select, button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
 
-  #loginBox {
-    background: white;
-    padding: 2rem;
-    width: 320px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: center;
-  }
+button {
+  background: #1f4fd8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-  #loginBox input {
-    width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
+button.secondary {
+  background: #555;
+}
 
-  #loginBox button {
-    width: 100%;
-    padding: 0.6rem;
-    background: #1f4fd8;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+.box {
+  background: white;
+  padding: 2rem;
+  width: 320px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-  /* CONTROLS */
-  .controls input {
-    width: 100%;
-    padding: 0.7rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin-bottom: 1.5rem;
-  }
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
 
-  /* FIELDS */
-  .fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
+.field-btn {
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
 
-  .field-btn {
-    padding: 1rem;
-    border-radius: 10px;
-    border: none;
-    background: white;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  }
+.paper-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
 
-  .field-btn:hover {
-    background: #eaf0ff;
-  }
+.tag {
+  background: #dbe4ff;
+  color: #1f4fd8;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  margin-right: 4px;
+}
 
-  /* PAPERS */
-  .paper-card {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    cursor: pointer;
-  }
-
-  .paper-card small {
-    color: #666;
-  }
-
-  .tag {
-    display: inline-block;
-    background: #dbe4ff;
-    color: #1f4fd8;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    margin-right: 4px;
-  }
-
-  #noResults {
-    color: #777;
-    text-align: center;
-    margin-top: 2rem;
-  }
-
-  footer {
-    text-align: center;
-    padding: 1rem;
-    background: #eaeaea;
-    font-size: 0.85rem;
-  }
-
-  /* MODAL */
-  .modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    justify-content: center;
-    align-items: center;
-  }
-
-  .modal-content {
-    background: white;
-    padding: 1.5rem;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 10px;
-  }
-
-  .close-btn {
-    float: right;
-    cursor: pointer;
-    font-weight: bold;
-  }
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #eaeaea;
+  font-size: 0.85rem;
+}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen">
-  <div id="loginBox">
-    <h3>Student Login</h3>
-    <input id="studentName" placeholder="Enter your name">
-    <button onclick="loginStudent()">Enter</button>
-    <p style="font-size:0.8rem;color:#666;margin-top:1rem;">
-      Offline – no internet required
-    </p>
-  </div>
+<!-- STUDENT LOGIN -->
+<div id="studentLogin" class="box">
+  <h3>Student Login</h3>
+  <input id="studentName" placeholder="Enter your name">
+  <button onclick="studentLogin()">Enter</button>
+  <hr>
+  <button class="secondary" onclick="showAdminLogin()">Admin Login</button>
 </div>
 
-<!-- APP -->
-<div id="app" style="display:none;">
+<!-- ADMIN LOGIN -->
+<div id="adminLogin" class="box hidden">
+  <h3>Admin Login</h3>
+  <input id="adminUser" placeholder="Username">
+  <input id="adminPass" type="password" placeholder="Password">
+  <button onclick="adminLogin()">Login</button>
+  <button class="secondary" onclick="backToStudent()">Back</button>
+</div>
 
+<!-- STUDENT APP -->
+<div id="studentApp" class="hidden">
 <header>
   <h1>E-Research Tambakan</h1>
-  <p>Project-led by2025-2026 Junior High School Research Club</p>
+  <p>Offline Research Index</p>
+  <button class="secondary" onclick="logout()">Logout</button>
 </header>
 
 <main>
-
-  <div class="controls">
-    <input id="search" placeholder="Search by title or keyword" oninput="renderPapers()">
-  </div>
-
-  <h2>Select a Research Field</h2>
+  <h2>Select Research Field</h2>
   <div class="fields">
     <button class="field-btn" onclick="selectField('MCS')">MCS</button>
     <button class="field-btn" onclick="selectField('RIM')">RIM</button>
@@ -197,116 +134,102 @@
     <button class="field-btn" onclick="selectField('STEMIE')">STEMIE</button>
   </div>
 
-  <div id="paperContainer"></div>
-  <div id="noResults" style="display:none;">No resource found</div>
-
+  <div id="papers"></div>
 </main>
-
-<footer>
-  © 2026 E-Research Tambakan | Junior High School Research Club
-</footer>
-
 </div>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">X</span>
-    <h3 id="modalTitle"></h3>
-    <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
-    <p><strong>Year:</strong> <span id="modalYear"></span></p>
-    <p><strong>Abstract:</strong></p>
-    <p id="modalAbstract"></p>
-    <p><strong>Keywords:</strong> <span id="modalKeywords"></span></p>
-  </div>
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="hidden">
+<header>
+  <h1>Admin Panel</h1>
+  <button class="secondary" onclick="logout()">Logout</button>
+</header>
+
+<main>
+  <h3>Add Study</h3>
+  <select id="field">
+    <option>MCS</option>
+    <option>RIM</option>
+    <option>LS</option>
+    <option>PS</option>
+    <option>STEMIE</option>
+  </select>
+  <input id="title" placeholder="Title">
+  <input id="author" placeholder="Author">
+  <input id="year" placeholder="Year">
+  <textarea id="abstract" placeholder="Abstract" style="width:100%;height:80px;"></textarea>
+  <input id="keywords" placeholder="Keywords (comma separated)">
+  <button onclick="addStudy()">Save Study</button>
+</main>
 </div>
+
+<footer>© 2026 E-Research Tambakan</footer>
 
 <script>
-  const papers = {
-    MCS: createPapers("MCS"),
-    RIM: createPapers("RIM"),
-    LS: createPapers("LS"),
-    PS: createPapers("PS"),
-    STEMIE: createPapers("STEMIE")
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "tambakan123";
+
+let papers = JSON.parse(localStorage.getItem("papers")) || {
+  MCS: [], RIM: [], LS: [], PS: [], STEMIE: []
+};
+
+function studentLogin() {
+  const name = studentName.value.trim();
+  if (!name) return alert("Enter your name");
+  studentLoginDiv(false);
+  studentApp.classList.remove("hidden");
+}
+
+function adminLogin() {
+  if (adminUser.value === ADMIN_USER && adminPass.value === ADMIN_PASS) {
+    adminLogin.classList.add("hidden");
+    adminPanel.classList.remove("hidden");
+  } else {
+    alert("Wrong credentials");
+  }
+}
+
+function showAdminLogin() {
+  studentLoginDiv(false);
+  adminLogin.classList.remove("hidden");
+}
+
+function backToStudent() {
+  adminLogin.classList.add("hidden");
+  studentLoginDiv(true);
+}
+
+function studentLoginDiv(show) {
+  studentLogin.classList.toggle("hidden", !show);
+}
+
+function logout() {
+  location.reload();
+}
+
+function selectField(field) {
+  const div = papers[field].map(p =>
+    `<div class="paper-card">
+      <strong>${p.title}</strong><br>
+      <small>${p.author} (${p.year})</small><br>
+      ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
+    </div>`
+  ).join("");
+  document.getElementById("papers").innerHTML = div || "No studies yet.";
+}
+
+function addStudy() {
+  const study = {
+    title: title.value,
+    author: author.value,
+    year: year.value,
+    abstract: abstract.value,
+    keywords: keywords.value.split(",").map(k => k.trim())
   };
-
-  let currentField = null;
-
-  function createPapers(field) {
-    return [{
-      title: field + " Sample Research Study",
-      author: "Various Authors",
-      year: 2022,
-      abstract: "This study provides an example research topic under " + field + " for student reference.",
-      keywords: ["student", "research", field]
-    }];
-  }
-
-  function selectField(field) {
-    currentField = field;
-    renderPapers();
-  }
-
-  function renderPapers() {
-    const container = document.getElementById("paperContainer");
-    const noResults = document.getElementById("noResults");
-    container.innerHTML = "";
-    noResults.style.display = "none";
-
-    if (!currentField) return;
-
-    const query = document.getElementById("search").value.toLowerCase();
-    const results = papers[currentField].filter(p =>
-      p.title.toLowerCase().includes(query) ||
-      p.keywords.join(" ").includes(query)
-    );
-
-    if (results.length === 0) {
-      noResults.style.display = "block";
-      return;
-    }
-
-    results.forEach(p => {
-      const div = document.createElement("div");
-      div.className = "paper-card";
-      div.innerHTML = `
-        <strong>${p.title}</strong><br>
-        <small>${p.author} (${p.year})</small><br>
-        ${p.keywords.map(k => `<span class="tag">${k}</span>`).join("")}
-      `;
-      div.onclick = () => openModal(p);
-      container.appendChild(div);
-    });
-  }
-
-  function openModal(p) {
-    modalTitle.innerText = p.title;
-    modalAuthor.innerText = p.author;
-    modalYear.innerText = p.year;
-    modalAbstract.innerText = p.abstract;
-    modalKeywords.innerText = p.keywords.join(", ");
-    modal.style.display = "flex";
-  }
-
-  function closeModal() {
-    modal.style.display = "none";
-  }
-
-  function loginStudent() {
-    const name = studentName.value.trim();
-    if (!name) return alert("Please enter your name");
-    localStorage.setItem("studentName", name);
-    showApp();
-  }
-
-  function showApp() {
-    loginScreen.style.display = "none";
-    app.style.display = "block";
-  }
-
-  if (localStorage.getItem("studentName")) {
-    showApp();
-  }
+  papers[field.value].push(study);
+  localStorage.setItem("papers", JSON.stringify(papers));
+  alert("Study saved!");
+}
 </script>
 
 </body>
